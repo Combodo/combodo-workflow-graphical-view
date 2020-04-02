@@ -1,6 +1,4 @@
-<?php
-
-/**
+/*!
  * Copyright (C) 2013-2020 Combodo SARL
  *
  * This file is part of iTop.
@@ -18,3 +16,21 @@
  * You should have received a copy of the GNU Affero General Public License
  */
 
+/* Note: Imports path is the /css folder */
+@import 'css-variables.scss';
+
+.lifecycle_sneakpeek{
+	a.lcsp-show-graph{
+		margin-left: 8px;
+		color: inherit; /* Remove hyperlink blue for regular text color */
+		text-decoration: none;
+
+		&:hover{
+			color: $highlight-color;
+		}
+	}
+}
+
+.lcsn-graph-container{
+	text-align: center;
+}

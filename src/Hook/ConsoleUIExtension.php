@@ -51,11 +51,16 @@ class ConsoleUIExtension extends AbstractApplicationUIExtension
 			return;
 		}
 
-		$oLM = new LifecycleManager();
+		$oLM = new LifecycleManager($oObject);
+		$aCSSFiles = $oLM->GetCSSFilesUrls();
 		$aJSFiles = $oLM->GetJSFilesUrls();
-		$sJSWidgetSnippet = $oLM->GetJSWidgetSnippetForObjectDetails($oObject);
+		$sJSWidgetSnippet = $oLM->GetJSWidgetSnippetForObjectDetails();
 
 		// Add resources
+		foreach($aCSSFiles as $sCSSFile)
+		{
+			$oPage->add_linked_stylesheet($sCSSFile);
+		}
 		foreach($aJSFiles as $sJSFile)
 		{
 			$oPage->add_linked_script($sJSFile);

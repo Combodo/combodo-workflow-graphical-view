@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<itop_design xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.7">
+	<module_parameters>
+		<parameters id="combodo-lifecycle-sneakpeek" _delta="define">
+			<hide_internal_stimuli>false</hide_internal_stimuli>
+			<stimuli_to_hide type="array">
+				<class id="UserRequest">ev_assign, ev_reopen</class>
+			</stimuli_to_hide>
+			<disabled_classes type="array"></disabled_classes>
+			<disabled_portals type="array"></disabled_portals>
+		</parameters>
+	</module_parameters>
+</itop_design>

@@ -33,6 +33,15 @@ class ConfigHelper
 {
 	const MODULE_CODE = 'combodo-lifecycle-sneakpeek';
 
+	/** @var array */
+	const DEFAULT_SETTING_STIMULI_TO_HIDE = array();
+	/** @var bool */
+	const DEFAULT_SETTING_HIDE_INTERNAL_STIMULI = false;
+	/** @var array */
+	const DEFAULT_SETTING_DISABLED_CLASSES = array();
+	/** @var array */
+	const DEFAULT_SETTING_DISABLED_PORTALS = array();
+
 	/**
 	 * Return the module code so it can be used widely (module setting, URLs, ...)
 	 *
@@ -50,7 +59,10 @@ class ConfigHelper
 	 */
 	public static function GetModuleSetting($sProperty)
 	{
-		return MetaModel::GetModuleSetting(static::GetModuleCode(), $sProperty);
+		$sDefaultValueConstName = get_class().'::DEFAULT_SETTING_' . strtoupper($sProperty);
+		$defaultValue = (defined($sDefaultValueConstName)) ? constant($sDefaultValueConstName) : null;
+
+		return MetaModel::GetModuleSetting(static::GetModuleCode(), $sProperty, $defaultValue);
 	}
 
 	/**
@@ -64,16 +76,16 @@ class ConfigHelper
 	 */
 	public static function IsAllowed($sGUI)
 	{
-		// Check if enabled in $sGUI
-		$aEnabledGUIs = MetaModel::GetModuleSetting(static::GetModuleCode(), 'enabled_portals');
-		if (is_array($aEnabledGUIs) && !in_array($sGUI, $aEnabledGUIs))
+		// Check if disabled in $sGUI
+		$aDisabledGUIs = static::GetModuleSetting('disabled_portals');
+		if (is_array($aDisabledGUIs) && in_array($sGUI, $aDisabledGUIs))
 		{
 			return false;
 		}
 
 		// Check if user has profile to access lifecycle
 		$aUserProfiles = UserRights::ListProfiles();
-		$aAllowedProfiles = MetaModel::GetModuleSetting(static::GetModuleCode(), 'allowed_profiles');
+		$aAllowedProfiles = static::GetModuleSetting('allowed_profiles');
 		// No allowed profile defined = Allowed for everyone
 		if (!empty($aAllowedProfiles))
 		{

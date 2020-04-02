@@ -20,14 +20,18 @@
 
 namespace Combodo\iTop\Extension\LifecycleSneakPeek\Service;
 
+use Combodo\iTop\Extension\LifecycleSneakPeek\Helper\ConfigHelper;
 use ContextTag;
 use DBObject;
+use Dict;
 use MetaModel;
-use Combodo\iTop\Extension\LifecycleSneakPeek\Helper\ConfigHelper;
 use utils;
 
 class LifecycleManager
 {
+	/** @var \DBObject */
+	private $oObject;
+
 	/**
 	 * Return if $oObject is eligible to the service
 	 *
@@ -42,14 +46,14 @@ class LifecycleManager
 
 		// Check if among disabled classes
 		$aDisabledClasses = ConfigHelper::GetModuleSetting('disabled_classes');
-		if(is_array($aDisabledClasses) && in_array($sClass, $aDisabledClasses))
+		if (is_array($aDisabledClasses) && in_array($sClass, $aDisabledClasses))
 		{
 			return false;
 		}
 
 		// Check if has state attribute
 		$sStateAttCode = MetaModel::GetStateAttributeCode($sClass);
-		if(empty($sStateAttCode))
+		if (empty($sStateAttCode))
 		{
 			return false;
 		}
@@ -58,49 +62,145 @@ class LifecycleManager
 	}
 
 	/**
-	 * LifecycleManager constructor.
+	 * Return an array of eligible classes and their state attribute code
+	 *
+	 * @return array
+	 * @throws \CoreException
 	 */
-	public function __construct()
+	public static function EnumEligibleClasses()
 	{
+		$aEligibleClasses = array();
+		foreach(MetaModel::EnumRootClasses() as $sRootClass)
+		{
+			$sStateAttCode = MetaModel::GetStateAttributeCode($sRootClass);
+			if(!empty($sStateAttCode))
+			{
+				$aEligibleClasses[$sRootClass] = array('state_att_code' => $sStateAttCode);
+			}
+
+			foreach(MetaModel::EnumChildClasses($sRootClass) as $sChildClass)
+			{
+				$sStateAttCode = MetaModel::GetStateAttributeCode($sChildClass);
+				if(!empty($sStateAttCode))
+				{
+					$aEligibleClasses[$sChildClass] = array('state_att_code' => $sStateAttCode);
+				}
+			}
+		}
+
+		return $aEligibleClasses;
 	}
 
 	/**
-	 * Return an array of the required JS files
+	 * Return an array of the required CSS files URLs
+	 *
 	 * @return array
 	 * @throws \Exception
 	 */
-	public function GetJSFilesUrls()
+	public static function GetCSSFilesUrls()
+	{
+		$sDefaultCSSRelPath = utils::GetCSSFromSASS('env-'.utils::GetCurrentEnvironment().'/'.ConfigHelper::GetModuleCode().'/asset/css/default.scss');
+
+		return array(
+			utils::GetAbsoluteUrlAppRoot().$sDefaultCSSRelPath,
+		);
+	}
+
+	/**
+	 * Return an array of the required JS files URLs
+	 *
+	 * @return array
+	 * @throws \Exception
+	 */
+	public static function GetJSFilesUrls()
 	{
 		$sBaseUrl = utils::GetAbsoluteUrlModulesRoot().ConfigHelper::GetModuleCode().'/asset/js/';
 
 		return array(
 			$sBaseUrl.'lifecycle_sneakpeek.js',
+			$sBaseUrl.static::GetJSWidgetNameForUI().'.js',
 		);
+	}
+
+	/**
+	 * Return the name of the JS widget for the UI
+	 *
+	 * @return string
+	 */
+	public static function GetJSWidgetNameForUI()
+	{
+		return ContextTag::Check(ContextTag::TAG_PORTAL) ? 'lifecycle_sneakpeek_portal' : 'lifecycle_sneakpeek_backoffice';
+	}
+
+	/**
+	 * Return the endpoint absolute URL for AJAX calls
+	 *
+	 * @return string
+	 * @throws \Exception
+	 */
+	public static function GetEndpoint()
+	{
+		return utils::GetAbsoluteUrlModulePage(ConfigHelper::GetModuleCode(), 'ajax-operations.php');
+	}
+
+	/**
+	 * LifecycleManager constructor.
+	 *
+	 * @param \DBObject $oObject
+	 */
+	public function __construct(DBObject $oObject)
+	{
+		$this->oObject = $oObject;
 	}
 
 	/**
 	 * Return the JS snippet to instantiate the lifecycle widget for $oObject
 	 *
-	 * @param \DBObject $oObject
-	 *
 	 * @return string
+	 * @throws \CoreException
 	 * @throws \Exception
 	 */
-	public function GetJSWidgetSnippetForObjectDetails(DBObject $oObject)
+	public function GetJSWidgetSnippetForObjectDetails()
 	{
-		$sUI = ContextTag::Check(ContextTag::TAG_PORTAL) ? 'portal' : 'backoffice';
-		$sEndpoint = utils::GetAbsoluteUrlModulePage(ConfigHelper::GetModuleCode(), 'ajax-operations.php');
-		$sObjClass = get_class($oObject);
-		$sObjID = $oObject->GetKey();
+		$sObjClass = get_class($this->oObject);
+		$sObjID = $this->oObject->GetKey();
 		$sObjStateAttCode = MetaModel::GetStateAttributeCode($sObjClass);
+		$sObjState = $this->oObject->GetState();
+
+		$sWidgetName = $this->GetJSWidgetNameForUI();
+		$sEndpoint = static::GetEndpoint();
+
+		$sDictEntryShowButtonTooltip = Dict::S('lifecycle-sneakpeek:UI:Button:ShowLifecycle');
+		$sDictEntryModalTitle = Dict::S('lifecycle-sneakpeek:UI:Modal:Title');
+		$sDictEntryModalCloseButtonLabel = Dict::S('UI:Button:Close');
 
 		return <<<JS
-\$('.object-details[data-object-class="{$sObjClass}"][data-object-id="{$sObjID}"] *[data-attribute-code="{$sObjStateAttCode}"]').lifecycle_sneakpeek({
-	ui: '{$sUI}',
+\$('.object-details[data-object-class="{$sObjClass}"][data-object-id="{$sObjID}"] *[data-attribute-code="{$sObjStateAttCode}"][data-attribute-flag-read-only="true"]').{$sWidgetName}({
 	object_class: '{$sObjClass}',
 	object_id: '{$sObjID}',
-	endpoint: '{$sEndpoint}'
+	object_state: '{$sObjState}',
+	endpoint: '{$sEndpoint}',
+	dict: {
+		show_button_tooltip: '{$sDictEntryShowButtonTooltip}',
+		modal_title: '{$sDictEntryModalTitle}',
+		modal_close_button_label: '{$sDictEntryModalCloseButtonLabel}'
+	}
 });
 JS;
+	}
+
+	/**
+	 * Return the path of the lifecycle image
+	 *
+	 * @param array $aStimuliToHide
+	 * @param bool  $bHideInternalStimuli
+	 *
+	 * @return string
+	 * @throws \CoreException
+	 * @throws \ReflectionException
+	 */
+	public function GetLifecycleImage($aStimuliToHide = array(), $bHideInternalStimuli = ConfigHelper::DEFAULT_SETTING_HIDE_INTERNAL_STIMULI)
+	{
+		return GraphvizGenerator::GenerateObjectLifecycleAsImage($this->oObject, $aStimuliToHide, $bHideInternalStimuli);
 	}
 }

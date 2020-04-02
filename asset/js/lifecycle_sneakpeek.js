@@ -44,22 +44,28 @@ $(function()
 			// default options
 			options:
 			{
-				ui: 'backoffice',   // Either 'backoffice' or ContextTag::TAG_PORTAL, used to instantiate the correct tooltip library
 				loaded: false,      // True when the lifecycle has been loaded in the DOM
 				object_class: null,
 				object_id: null,
+				object_state: null,
 				content: null,      // If no content on initialization, will be fetched from endpoint
-				endpoint: null
+				endpoint: null,
+				dict: {
+					show_button_tooltip: 'Show lifecycle',
+					modal_title: 'Lifecycle',
+					modal_close_label: 'Close'
+				}
 			},
+
+			show_button_elem: null,
+			modal_elem: null,
 
 			// the constructor
 			_create: function()
 			{
-				var me = this;
-
 				// Checking mandatory options
 				var aMandatoryOptionsMissing = [];
-				var aMandatoryOptions = ['object_class', 'object_id', 'endpoint'];
+				var aMandatoryOptions = ['object_class', 'object_id', 'object_state', 'endpoint'];
 				for(var iIdx in aMandatoryOptions)
 				{
 					var sOption = aMandatoryOptions[iIdx];
@@ -77,7 +83,8 @@ $(function()
 				this.element
 					.addClass('lifecycle_sneakpeek');
 
-				this._initializeTooltip();
+				this._initialize();
+				this._bindEvents();
 			},
 
 			// called when created, and later when changing options
@@ -104,44 +111,137 @@ $(function()
 				this._super( key, value );
 			},
 
-			//
-			_initializeTooltip: function()
+			// Initialization methods
+			_initialize: function()
 			{
-				if(this.options.ui === 'backoffice')
-				{
-					var oContentParam = {};
-					if(this.options.content !== null)
-					{
-						oContentParam['text'] = this.options.content;
-					}
-					else
-					{
-						oContentParam['url'] = this.options.endpoint;
-						oContentParam['data'] = {
-							object_class: this.options.object_class,
-							object_id: this.options.object_id
-						};
-					}
+				this._initializeMarkup();
+			},
+			_initializeMarkup: function()
+			{
+				this._makeShowButtonElem();
+				this._addShowButtonToDOM();
+				this._makeModalElem();
+				this._addModalToDOM();
+			},
+			_bindEvents: function()
+			{
+				var me = this;
 
-					// TODO: Extract async load to handle errors
-					this.element.qtip({
-						content: oContentParam,
-						position: {
-							corner: {
-								target: 'topMiddle',
-								tooltip: 'bottomMiddle'
-							},
-						},
-						style: {
-							name: 'dark',
-							tip: 'bottomMiddle'
-						}
-					});
+				// Show graph
+				this.element.find('.lcsp-show-graph').on('click', function(oEvent){
+					// Prevent scroll to top due to anchor
+					oEvent.preventDefault();
+
+					me._onShowGraph();
+				});
+			},
+			// Make the jQuery object of the "show graph" element
+			_makeShowButtonElem: function()
+			{
+				this.show_button_elem = $('<a></a>')
+					.addClass('lcsp-show-graph')
+					.addClass('fa')
+					.addClass('fa-map-marked-alt')
+					.attr('href', '#')
+					.attr('title', this.options.dict.show_button_tooltip);
+			},
+			// Make the jQuery object of the "modal" element
+			_makeModalElem: function()
+			{
+				this.modal_elem = $('<div></div>')
+					.addClass('lcsn-graph-container')
+					.attr('data-object-class', this.options.object_class)
+					.attr('data-object-id', this.options.object_id);
+			},
+			// Insert the "show graph" element in the DOM
+			_addShowButtonToDOM: function()
+			{
+				// Meant for overloading
+			},
+			// Insert the graph modal element in the DOM
+			_addModalToDOM: function()
+			{
+				this.modal_elem.appendTo( $('body') );
+			},
+
+			// Events callbacks
+			_onShowGraph: function()
+			{
+				if(this.options.content !== null)
+				{
+					this._showGraph();
 				}
 				else
 				{
-
+					this._loadContentAndShowGraph();
 				}
+			},
+			_onLoadContentDone: function(oData)
+			{
+				this.options.content = '<img src="data:image/png;base64,'+oData+'" alt="Lifecycle" style="max-width: 96%;" />';
+			},
+			_onLoadContentFail: function(sErrorAsHTML)
+			{
+				this.options.content = sErrorAsHTML;
+			},
+			_onLoadContentAlways: function()
+			{
+				this._showGraph();
+				this._hideLoader();
+			},
+
+			// Workflow methods
+			_loadContentAndShowGraph: function()
+			{
+				var me = this;
+
+				this._showLoader();
+				$.get(
+					this.options.endpoint,
+					{
+						object_class: this.options.object_class,
+						object_id: this.options.object_id,
+						object_state: this.options.object_state,     // Note: State could be retrieve by the backend, but we use it in the URL to cache 1 image per object/state in the browser's cache
+						output_format: 'base64'
+					}
+					)
+					.done(function(oData){ me._onLoadContentDone(oData); })
+					.fail(function(oXHR){ me._onLoadContentFail(oXHR.responseText); })
+					.always(function(){ me._onLoadContentAlways(); });
+			},
+			_showGraph: function()
+			{
+				// Prepare modal if not ready
+				if(this.modal_elem.html().length === 0)
+				{
+					this._prepareModal()
+				}
+
+				this._openModal();
+			},
+			// Instantiate modal widget and prepare its content
+			_prepareModal: function()
+			{
+				// Meant for overloading.
+			},
+			// Open the modal
+			_openModal: function()
+			{
+				// Meant for overloading.
+			},
+			_showLoader: function()
+			{
+				this.show_button_elem
+					.removeClass('fa-sync-alt')
+					.addClass('fa-sync-alt')
+					.addClass('fa-spin');
+			},
+			_hideLoader: function()
+			{
+				this.show_button_elem
+					.addClass('fa-sync-alt')
+					.removeClass('fa-sync-alt')
+					.removeClass('fa-spin');
 			},
 
 			// Helpers
