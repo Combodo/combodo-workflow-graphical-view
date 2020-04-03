@@ -36,6 +36,11 @@ use StimulusInternal;
 class GraphvizGenerator
 {
 	/** @var string */
+	const ENUM_STIMULUS_TYPE_PRIMARY = 'primary';
+	/** @var string */
+	const ENUM_STIMULUS_TYPE_SECONDARY = 'secondary';
+
+	/** @var string */
 	public static $sTmpFolderPath = APPROOT.'data/lifecycle/';
 
 	/**
@@ -109,6 +114,7 @@ class GraphvizGenerator
 		// Seek connections
 		foreach ($aStates as $sStateCode)
 		{
+			$sStateLabel = MetaModel::GetStateLabel($sObjClass, $sStateCode);
 			$aStateTransitions = MetaModel::EnumTransitions($sObjClass, $sStateCode);
 			foreach ($aStateTransitions as $sStimulusCode => $aTransitionDef)
 			{
@@ -125,18 +131,21 @@ class GraphvizGenerator
 				}
 
 				$sStimulusLabel = $aStimuli[$sStimulusCode]->GetLabel();
+				$sStimulusType = ($aStimuli[$sStimulusCode] instanceof StimulusInternal) ? static::ENUM_STIMULUS_TYPE_SECONDARY : static::ENUM_STIMULUS_TYPE_PRIMARY;
 				$sTargetStateCode = $aTransitionDef['target_state'];
 				$sTargetStateLabel = MetaModel::GetStateLabel($sObjClass, $sTargetStateCode);
 
 				$aStatesConnections[$sStateCode]['out'][] = array(
 					'stimulus_code' => $sStimulusCode,
 					'stimulus_label' => $sStimulusLabel,
+					'stimulus_type' => $sStimulusType,
 					'state_code' => $sTargetStateCode,
 					'state_label' => $sTargetStateLabel,
 				);
 				$aStatesConnections[$sTargetStateCode]['in'][] = array(
 					'stimulus_code' => $sStimulusCode,
 					'stimulus_label' => $sStimulusLabel,
+					'stimulus_type' => $sStimulusType,
 					'state_code' => $sStateCode,
 					'state_label' => $sStateLabel,
 				);
@@ -182,7 +191,8 @@ class GraphvizGenerator
 			foreach ($aStateConnections['out'] as $aStimulus)
 			{
 				$sStimulusLabelEscaped = static::EscapeForDotFile($aStimulus['stimulus_label']);
-				$aTransitionsDefinitions[] = "{$sStateCode} -> {$aStimulus['state_code']} [ label=\"{$sStimulusLabelEscaped}\" ];";
+				$sStimulusStyle = ($aStimulus['stimulus_type'] == static::ENUM_STIMULUS_TYPE_PRIMARY) ? 'filled' : 'dashed';
+				$aTransitionsDefinitions[] = "{$sStateCode} -> {$aStimulus['state_code']} [ label=\"{$sStimulusLabelEscaped}\" style=\"{$sStimulusStyle}\" ];";
 			}
 		}
 
