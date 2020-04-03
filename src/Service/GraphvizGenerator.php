@@ -25,7 +25,6 @@ use Exception;
 use IssueLog;
 use MetaModel;
 use ReflectionClass;
-use StimulusInternal;
 
 /**
  * Class GraphvizGenerator
@@ -33,7 +32,7 @@ use StimulusInternal;
  * @package Combodo\iTop\Extension\LifecycleSneakPeek\Service
  * @author  Guillaume Lajarige <guillaume.lajarige@combodo.com>
  */
-class GraphvizGenerator
+class GraphvizGenerator extends LifecycleGraphGenerator
 {
 	/** @var string */
 	public static $sTmpFolderPath = APPROOT.'data/lifecycle/';
@@ -72,87 +71,6 @@ class GraphvizGenerator
 
 		// Generate temp. image file
 		return static::GenerateImageFromDefinition($sObjClass, $iObjID, $sDotFilePath);
-	}
-
-	/**
-	 * Return an array of states and their number of inbound / outbound connections
-	 *
-	 * @param \DBObject $oObject
-	 * @param array     $aStimuliToIgnore
-	 * @param bool      $bHideInternalStimuli
-	 * @param bool      $bHideOrphanStates
-	 *
-	 * @return array
-	 * @throws \CoreException
-	 */
-	protected static function GetObjectStatesConnections(DBObject $oObject, $aStimuliToIgnore = array(), $bHideInternalStimuli = false, $bHideOrphanStates = true)
-	{
-		$sObjClass = get_class($oObject);
-
-		$sCurrentState = $oObject->GetState();
-		$aStates = array_keys(MetaModel::EnumStates($sObjClass));
-		$aStimuli = MetaModel::EnumStimuli($sObjClass);
-
-		// Initialize states connections
-		$aStatesConnections = array();
-		foreach ($aStates as $sStateCode)
-		{
-			$sStateLabel = MetaModel::GetStateLabel($sObjClass, $sStateCode);
-			$aStatesConnections[$sStateCode] = array(
-				'label' => $sStateLabel,
-				'current' => ($sStateCode === $sCurrentState),
-				'in' => array(),
-				'out' => array(),
-			);
-		}
-
-		// Seek connections
-		foreach ($aStates as $sStateCode)
-		{
-			$aStateTransitions = MetaModel::EnumTransitions($sObjClass, $sStateCode);
-			foreach ($aStateTransitions as $sStimulusCode => $aTransitionDef)
-			{
-				// Skip some stimuli when necessary
-				// - Internal stimuli
-				if($bHideInternalStimuli && ($aStimuli[$sStimulusCode] instanceof StimulusInternal))
-				{
-					continue;
-				}
-				// - Explicitly ask to be ignored
-				if (in_array($sStimulusCode, $aStimuliToIgnore))
-				{
-					continue;
-				}
-
-				$sStimulusLabel = $aStimuli[$sStimulusCode]->GetLabel();
-				$sTargetStateCode = $aTransitionDef['target_state'];
-				$sTargetStateLabel = MetaModel::GetStateLabel($sObjClass, $sTargetStateCode);
-
-				$aStatesConnections[$sStateCode]['out'][] = array(
-					'stimulus_code' => $sStimulusCode,
-					'stimulus_label' => $sStimulusLabel,
-					'state_code' => $sTargetStateCode,
-					'state_label' => $sTargetStateLabel,
-				);
-				$aStatesConnections[$sTargetStateCode]['in'][] = array(
-					'stimulus_code' => $sStimulusCode,
-					'stimulus_label' => $sStimulusLabel,
-					'state_code' => $sStateCode,
-					'state_label' => $sStateLabel,
-				);
-			}
-		}
-
-		// Remove orphan states if necessary
-		foreach ($aStates as $sStateCode)
-		{
-			if ($bHideOrphanStates && (count($aStatesConnections[$sStateCode]['out']) === 0) && (count($aStatesConnections[$sStateCode]['in']) === 0))
-			{
-				unset($aStatesConnections[$sStateCode]);
-			}
-		}
-
-		return $aStatesConnections;
 	}
 
 	/**
@@ -299,41 +217,5 @@ EOF
 	protected static function EscapeForDotFile($sInput)
 	{
 		return str_replace('"', '\\"', $sInput);
-	}
-
-	/**
-	 * Return true if the given node has no inbound connection.
-	 *
-	 * @param array $aConnections
-	 *
-	 * @return bool
-	 */
-	protected static function IsStartNode($aConnections)
-	{
-		return (count($aConnections['in']) === 0);
-	}
-
-	/**
-	 * Return true if the given node has no outbound connection.
-	 *
-	 * @param array $aConnections
-	 *
-	 * @return bool
-	 */
-	protected static function IsEndNode($aConnections)
-	{
-		return (count($aConnections['out']) === 0);
-	}
-
-	/**
-	 * Return true if the given node has no inbound or outbound connection.
-	 *
-	 * @param array $aConnections
-	 *
-	 * @return bool
-	 */
-	protected static function IsStartOrEndNode($aConnections)
-	{
-		return static::IsStartNode($aConnections) || static::IsEndNode($aConnections);
 	}
 }

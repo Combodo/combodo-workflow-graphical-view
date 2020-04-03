@@ -54,7 +54,8 @@ $(function()
 					show_button_tooltip: 'Show lifecycle',
 					modal_title: 'Lifecycle',
 					modal_close_label: 'Close'
-				}
+				},
+				graph: null
 			},
 
 			show_button_elem: null,
@@ -167,7 +168,7 @@ $(function()
 			// Events callbacks
 			_onShowGraph: function()
 			{
-				if(this.options.content !== null)
+				if(this.options.graph !== null)
 				{
 					this._showGraph();
 				}
@@ -178,7 +179,7 @@ $(function()
 			},
 			_onLoadContentDone: function(oData)
 			{
-				this.options.content = '<img src="data:image/png;base64,'+oData+'" alt="Lifecycle" style="max-width: 96%;" />';
+				this.options.graph = oData;
 			},
 			_onLoadContentFail: function(sErrorAsHTML)
 			{
@@ -197,13 +198,13 @@ $(function()
 
 				this._showLoader();
 				$.get(
-					this.options.endpoint,
-					{
-						object_class: this.options.object_class,
-						object_id: this.options.object_id,
-						object_state: this.options.object_state,     // Note: State could be retrieve by the backend, but we use it in the URL to cache 1 image per object/state in the browser's cache
-						output_format: 'base64'
-					}
+						this.options.endpoint,
+						{
+							object_class: this.options.object_class,
+							object_id: this.options.object_id,
+							object_state: this.options.object_state     // Note: State could be retrieve by the backend, but we use it in the URL to cache 1 image per object/state in the browser's cache
+						},
+						'application/json'
 					)
 					.done(function(oData){ me._onLoadContentDone(oData); })
 					.fail(function(oXHR){ me._onLoadContentFail(oXHR.responseText); })

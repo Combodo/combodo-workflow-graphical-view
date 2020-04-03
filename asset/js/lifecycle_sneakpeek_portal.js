@@ -96,7 +96,7 @@ $(function()
 				// Note: Unfortunately we have to manually rebuild the modal markup as for now the CombodoPortalToolbox does not allow to specify all parts of the modal.
 				// This has been tracked under N°2906.
 				var sModalContent = '<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h4 class="modal-title">'+this.options.dict.modal_title+'</h4></div>'+
-				'<div class="modal-body lcsn-graph-container">' + this.options.content + '</div>' +
+				'<div class="modal-body lcsn-graph-container"><div id="lifecycle-sneak-peak-cts" style="width:100%; height:400px;"></div></div>' +
 				'<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">'+this.options.dict.modal_close_label+'</button></div>';
 
 				CombodoPortalToolbox.OpenModal({
@@ -105,7 +105,35 @@ $(function()
 			},
 			_openModal: function()
 			{
-
+			    var cy = cytoscape({
+			    	container: document.getElementById('lifecycle-sneak-peak-cts'), // container to render in
+			    	elements: this.options.graph,
+			    	style: [ // the stylesheet for the graph
+			    	    {
+			    	        selector: 'node',
+			    	        style: {
+			    	          'background-color': '#666',
+			    	          'label': 'data(label)'
+			    	        }
+			    	      },
+			    	      {
+			    	        selector: 'edge',
+			                style: {
+			                    'width': 2,
+			                    'target-arrow-shape': 'triangle',
+			                    'line-color': '#9dbaea',
+			                    'target-arrow-color': '#9dbaea',
+			                    'curve-style': 'bezier'
+			                  }
+			    	      }			    	      
+			    	    ],
+			    	layout: {
+			            name: 'dagre',
+			            rankDir: 'LR',
+			            nodeDimensionsIncludeLabels: true
+			        },
+			    });
+			    $('#lifecycle-sneak-peak-cts canvas').css('left', 0);
 			}
 		}
 	);

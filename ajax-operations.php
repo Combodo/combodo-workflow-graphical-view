@@ -66,29 +66,8 @@ try
 	$bHideInternalStimuli = ConfigHelper::GetModuleSetting('hide_internal_stimuli');
 
 	$oLM = new LifecycleManager($oObject);
-	$sImageFilePath = $oLM->GetLifecycleImage($aStimuliToHide, $bHideInternalStimuli);
-
-	// Send content
-	switch($sOutputFormat)
-	{
-		case 'base64':
-			header('Content-type: text/plain');
-			echo base64_encode(file_get_contents($sImageFilePath));
-			break;
-
-		case 'binary':
-		default:
-			header('Content-type: image/png');
-			echo file_get_contents($sImageFilePath);
-			break;
-	}
-
-
-	// If image in temp. dir., we delete it (means that it's not the default image)
-	if(stripos($sImageFilePath, GraphvizGenerator::$sTmpFolderPath) !== false)
-	{
-		@unlink($sImageFilePath);
-	}
+	header('Content-type: application/json');
+	echo $oLM->GetJSGraph();
 }
 catch(Exception $oException)
 {

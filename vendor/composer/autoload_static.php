@@ -20,20 +20,11 @@ class ComposerStaticInit8e40dbcbd20280eb1498a6aa84fb9d6f
         ),
     );
 
-    public static $classMap = array (
-        'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\Controller\\AjaxOperationsController' => __DIR__ . '/../..' . '/src/Controller/AjaxOperationsController.php',
-        'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\Extension\\ConsoleUIExtension' => __DIR__ . '/../..' . '/src/Hook/ConsoleUIExtension.php',
-        'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\Helper\\ConfigHelper' => __DIR__ . '/../..' . '/src/Helper/ConfigHelper.php',
-        'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\Service\\GraphvizGenerator' => __DIR__ . '/../..' . '/src/Service/GraphvizGenerator.php',
-        'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\Service\\LifecycleManager' => __DIR__ . '/../..' . '/src/Service/LifecycleManager.php',
-    );
-
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit8e40dbcbd20280eb1498a6aa84fb9d6f::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit8e40dbcbd20280eb1498a6aa84fb9d6f::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit8e40dbcbd20280eb1498a6aa84fb9d6f::$classMap;
 
         }, null, ClassLoader::class);
     }

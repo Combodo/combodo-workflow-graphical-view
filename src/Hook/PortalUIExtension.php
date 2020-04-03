@@ -90,6 +90,8 @@ class PortalUIExtension extends AbstractPortalUIExtension
 		$sDictEntryShowButtonTooltip = Dict::S('lifecycle-sneakpeek:UI:Button:ShowLifecycle');
 		$sDictEntryModalTitle = Dict::S('lifecycle-sneakpeek:UI:Modal:Title');
 		$sDictEntryModalCloseButtonLabel = Dict::S('UI:Button:Close');
+		
+		$sJSGraph = 
 
 		$sJS .= <<<JS
 // Lifecycle sneakpeek
@@ -117,7 +119,8 @@ function InstantiateLifecycleSneakpeekOnObject(oFormElem)
 			show_button_tooltip: '{$sDictEntryShowButtonTooltip}',
 			modal_title: '{$sDictEntryModalTitle}',
 			modal_close_button_label: '{$sDictEntryModalCloseButtonLabel}'
-		}
+		},
+        graph: null
 	});
     
     return true;

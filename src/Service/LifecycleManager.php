@@ -117,8 +117,11 @@ class LifecycleManager
 		$sBaseUrl = utils::GetAbsoluteUrlModulesRoot().ConfigHelper::GetModuleCode().'/asset/js/';
 
 		return array(
-			$sBaseUrl.'lifecycle_sneakpeek.js',
-			$sBaseUrl.static::GetJSWidgetNameForUI().'.js',
+		    $sBaseUrl.'cytoscape.min.js',
+		    $sBaseUrl.'dagre.min.js',
+		    $sBaseUrl.'cytoscape-dagre.js',
+		    $sBaseUrl.'lifecycle_sneakpeek.js',
+		    $sBaseUrl.static::GetJSWidgetNameForUI().'.js',
 		);
 	}
 
@@ -184,7 +187,8 @@ class LifecycleManager
 		show_button_tooltip: '{$sDictEntryShowButtonTooltip}',
 		modal_title: '{$sDictEntryModalTitle}',
 		modal_close_button_label: '{$sDictEntryModalCloseButtonLabel}'
-	}
+	},
+    graph: null,
 });
 JS;
 	}
@@ -202,5 +206,20 @@ JS;
 	public function GetLifecycleImage($aStimuliToHide = array(), $bHideInternalStimuli = ConfigHelper::DEFAULT_SETTING_HIDE_INTERNAL_STIMULI)
 	{
 		return GraphvizGenerator::GenerateObjectLifecycleAsImage($this->oObject, $aStimuliToHide, $bHideInternalStimuli);
+	}
+	
+	/**
+	 * Return (json encoded) structure of the Cytoscape graph
+	 *
+	 * @param array $aStimuliToHide
+	 * @param bool  $bHideInternalStimuli
+	 *
+	 * @return string
+	 * @throws \CoreException
+	 * @throws \ReflectionException
+	 */
+	 public function GetJSGraph($aStimuliToHide = array(), $bHideInternalStimuli = ConfigHelper::DEFAULT_SETTING_HIDE_INTERNAL_STIMULI)
+	{
+	    return CytoscapeGenerator::GenerateJSGraph($this->oObject, $aStimuliToHide, $bHideInternalStimuli);
 	}
 }

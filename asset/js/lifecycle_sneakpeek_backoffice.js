@@ -119,10 +119,40 @@ $(function()
 			},
 			_openModal: function()
 			{
+				this.modal_elem.append('<div id="lifecycle-sneak-peak-cts" style="width:100%; height:400px;"></div>');
 				this.modal_elem.dialog('open');
 				this.modal_elem.dialog({
 					position: { 'my': 'center', 'at': 'center' }
 				});
+			    var cy = cytoscape({
+			    	container: document.getElementById('lifecycle-sneak-peak-cts'), // container to render in
+			    	elements: this.options.graph,
+			    	style: [ // the stylesheet for the graph
+			    	    {
+			    	        selector: 'node',
+			    	        style: {
+			    	          'background-color': '#666',
+			    	          'label': 'data(label)'
+			    	        }
+			    	      },
+			    	      {
+			    	        selector: 'edge',
+			                style: {
+			                    'width': 2,
+			                    'target-arrow-shape': 'triangle',
+			                    'line-color': '#9dbaea',
+			                    'target-arrow-color': '#9dbaea',
+			                    'curve-style': 'bezier'
+			                  }
+			    	      }			    	      
+			    	    ],
+			    	layout: {
+			            name: 'dagre',
+			            rankDir: 'LR',
+			            nodeDimensionsIncludeLabels: true
+			        },
+			    });
+			    this.modal_elem.find('canvas').css('left', 0);
 			}
 		}
 	);
