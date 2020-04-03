@@ -87,7 +87,7 @@ $(function()
 			_addShowButtonToDOM: function()
 			{
 				// Add to DOM
-				this.show_button_elem.appendTo( this.element.find('.field_label') );
+				this.show_button_elem.appendTo( this.element.find('.field_data') );
 				// Add tooltip
 				this.show_button_elem.qtip({
 					show: { delay: 100 },

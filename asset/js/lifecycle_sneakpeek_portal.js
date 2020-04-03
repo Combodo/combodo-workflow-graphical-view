@@ -87,7 +87,7 @@ $(function()
 			_addShowButtonToDOM: function()
 			{
 				// Add to DOM
-				this.show_button_elem.appendTo( this.element.find('.form_field_label') );
+				this.show_button_elem.appendTo( this.element.find('.form_field_control') );
 				// Add tooltip
 				this.show_button_elem.tooltip();
 			},
