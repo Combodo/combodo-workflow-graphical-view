@@ -88,9 +88,9 @@ class PortalUIExtension extends AbstractPortalUIExtension
 		$sShowButtonCSSClassesAsJSON = json_encode(LifecycleManager::GetShowButtonCSSClasses());
 		$sEndpoint = LifecycleManager::GetEndpoint();
 
-		$sDictEntryShowButtonTooltip = Dict::S('lifecycle-sneakpeek:UI:Button:ShowLifecycle');
-		$sDictEntryModalTitle = Dict::S('lifecycle-sneakpeek:UI:Modal:Title');
-		$sDictEntryModalCloseButtonLabel = Dict::S('UI:Button:Close');
+		$sDictEntryShowButtonTooltipAsJSON = json_encode(Dict::S('lifecycle-sneakpeek:UI:Button:ShowLifecycle'));
+		$sDictEntryModalTitleAsJSON = json_encode(Dict::S('lifecycle-sneakpeek:UI:Modal:Title'));
+		$sDictEntryModalCloseButtonLabelAsJSON = json_encode(Dict::S('UI:Button:Close'));
 
 		$sJS .= <<<JS
 // Lifecycle sneakpeek
@@ -116,9 +116,9 @@ function InstantiateLifecycleSneakpeekOnObject(oFormElem)
 		show_button_css_classes: {$sShowButtonCSSClassesAsJSON},
 		endpoint: '{$sEndpoint}',
 		dict: {
-			show_button_tooltip: '{$sDictEntryShowButtonTooltip}',
-			modal_title: '{$sDictEntryModalTitle}',
-			modal_close_button_label: '{$sDictEntryModalCloseButtonLabel}'
+			show_button_tooltip: '{$sDictEntryShowButtonTooltipAsJSON}',
+			modal_title: '{$sDictEntryModalTitleAsJSON}',
+			modal_close_button_label: '{$sDictEntryModalCloseButtonLabelAsJSON}'
 		}
 	});
     

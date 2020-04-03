@@ -189,9 +189,9 @@ class LifecycleManager
 		$sShowButtonCSSClassesAsJSON = json_encode(static::GetShowButtonCSSClasses());
 		$sEndpoint = static::GetEndpoint();
 
-		$sDictEntryShowButtonTooltip = Dict::S('lifecycle-sneakpeek:UI:Button:ShowLifecycle');
-		$sDictEntryModalTitle = Dict::S('lifecycle-sneakpeek:UI:Modal:Title');
-		$sDictEntryModalCloseButtonLabel = Dict::S('UI:Button:Close');
+		$sDictEntryShowButtonTooltipAsJSON = Dict::S('lifecycle-sneakpeek:UI:Button:ShowLifecycle');
+		$sDictEntryModalTitleAsJSON = Dict::S('lifecycle-sneakpeek:UI:Modal:Title');
+		$sDictEntryModalCloseButtonLabelAsJSON = Dict::S('UI:Button:Close');
 
 		return <<<JS
 \$('.object-details[data-object-class="{$sObjClass}"][data-object-id="{$sObjID}"] *[data-attribute-code="{$sObjStateAttCode}"][data-attribute-flag-read-only="true"]').{$sWidgetName}({
@@ -201,9 +201,9 @@ class LifecycleManager
 	show_button_css_classes: {$sShowButtonCSSClassesAsJSON},
 	endpoint: '{$sEndpoint}',
 	dict: {
-		show_button_tooltip: '{$sDictEntryShowButtonTooltip}',
-		modal_title: '{$sDictEntryModalTitle}',
-		modal_close_button_label: '{$sDictEntryModalCloseButtonLabel}'
+		show_button_tooltip: '{$sDictEntryShowButtonTooltipAsJSON}',
+		modal_title: '{$sDictEntryModalTitleAsJSON}',
+		modal_close_button_label: '{$sDictEntryModalCloseButtonLabelAsJSON}'
 	}
 });
 JS;
