@@ -26,11 +26,13 @@
 	}
 	a.lcsp-show-graph{
 		margin-left: 8px;
+		font-size: 0.9em; /* Use EM to be relative with the value text size */
 		color: inherit; /* Remove hyperlink blue for regular text color */
-		text-decoration: none;
 
-		&:hover{
+		&:hover,
+		&:active{
 			color: $highlight-color;
+			text-decoration: none;
 		}
 	}
 }
