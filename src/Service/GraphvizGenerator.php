@@ -202,7 +202,7 @@ class GraphvizGenerator
 		// Build file
 		$sGlobalDefinition = <<<EOF
 digraph finite_state_machine {
-	graph [bgcolor = "#eeeeee"];
+	graph [bgcolor = "#eeeeee00"];
 	rankdir=LR;
 	node [ fontname=Verdana style=filled fillcolor="#ffffff" ];
 	edge [ fontname=Verdana ];
