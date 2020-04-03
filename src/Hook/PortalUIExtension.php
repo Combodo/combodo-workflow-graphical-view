@@ -85,6 +85,7 @@ class PortalUIExtension extends AbstractPortalUIExtension
 		$sEligibleClassesAsJSON = json_encode($aEligibleClasses);
 
 		$sWidgetName = LifecycleManager::GetJSWidgetNameForUI();
+		$sShowButtonCSSClassesAsJSON = json_encode(LifecycleManager::GetShowButtonCSSClasses());
 		$sEndpoint = LifecycleManager::GetEndpoint();
 
 		$sDictEntryShowButtonTooltip = Dict::S('lifecycle-sneakpeek:UI:Button:ShowLifecycle');
@@ -112,6 +113,7 @@ function InstantiateLifecycleSneakpeekOnObject(oFormElem)
 		object_class: sObjClass,
 		object_id: sObjID,
 		object_state: sObjState,
+		show_button_css_classes: {$sShowButtonCSSClassesAsJSON},
 		endpoint: '{$sEndpoint}',
 		dict: {
 			show_button_tooltip: '{$sDictEntryShowButtonTooltip}',

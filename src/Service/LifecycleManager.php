@@ -144,6 +144,24 @@ class LifecycleManager
 	}
 
 	/**
+	 * Return an array of the CSS classes for the "show button"
+	 *
+	 * @return array
+	 */
+	public static function GetShowButtonCSSClasses()
+	{
+		$aCSSClasses = array();
+
+		$sModuleParameter = ConfigHelper::GetModuleSetting('show_button_css_classes');
+		foreach(explode(' ', $sModuleParameter) as $sCSSClass)
+		{
+			$aCSSClasses[] = trim($sCSSClass);
+		}
+
+		return $aCSSClasses;
+	}
+
+	/**
 	 * LifecycleManager constructor.
 	 *
 	 * @param \DBObject $oObject
@@ -168,6 +186,7 @@ class LifecycleManager
 		$sObjState = $this->oObject->GetState();
 
 		$sWidgetName = $this->GetJSWidgetNameForUI();
+		$sShowButtonCSSClassesAsJSON = json_encode(static::GetShowButtonCSSClasses());
 		$sEndpoint = static::GetEndpoint();
 
 		$sDictEntryShowButtonTooltip = Dict::S('lifecycle-sneakpeek:UI:Button:ShowLifecycle');
@@ -179,6 +198,7 @@ class LifecycleManager
 	object_class: '{$sObjClass}',
 	object_id: '{$sObjID}',
 	object_state: '{$sObjState}',
+	show_button_css_classes: {$sShowButtonCSSClassesAsJSON},
 	endpoint: '{$sEndpoint}',
 	dict: {
 		show_button_tooltip: '{$sDictEntryShowButtonTooltip}',

@@ -41,6 +41,8 @@ class ConfigHelper
 	const DEFAULT_SETTING_DISABLED_CLASSES = array();
 	/** @var array */
 	const DEFAULT_SETTING_DISABLED_PORTALS = array();
+	/** @var string */
+	const DEFAULT_SETTING_SHOW_BUTTON_CSS_CLASSES = 'fas fa-map-marked-alt';
 
 	/**
 	 * Return the module code so it can be used widely (module setting, URLs, ...)

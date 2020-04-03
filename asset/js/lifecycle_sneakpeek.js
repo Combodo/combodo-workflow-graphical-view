@@ -48,6 +48,7 @@ $(function()
 				object_class: null,
 				object_id: null,
 				object_state: null,
+				show_button_css_classes: [],
 				content: null,      // If no content on initialization, will be fetched from endpoint
 				endpoint: null,
 				dict: {
@@ -140,10 +141,13 @@ $(function()
 			{
 				this.show_button_elem = $('<a></a>')
 					.addClass('lcsp-show-graph')
-					.addClass('fa')
-					.addClass('fa-map-marked-alt')
 					.attr('href', '#')
 					.attr('title', this.options.dict.show_button_tooltip);
+
+				for(var iIdx in this.options.show_button_css_classes)
+				{
+					this.show_button_elem.addClass(this.options.show_button_css_classes[iIdx]);
+				}
 			},
 			// Make the jQuery object of the "modal" element
 			_makeModalElem: function()
@@ -231,17 +235,27 @@ $(function()
 			},
 			_showLoader: function()
 			{
+				for(var iIdx in this.options.show_button_css_classes)
+				{
+					this.show_button_elem.removeClass(this.options.show_button_css_classes[iIdx]);
+				}
+
 				this.show_button_elem
-					.removeClass('fa-sync-alt')
+					.addClass('fas')
 					.addClass('fa-sync-alt')
 					.addClass('fa-spin');
 			},
 			_hideLoader: function()
 			{
 				this.show_button_elem
-					.addClass('fa-sync-alt')
+					.removeClass('fas')
 					.removeClass('fa-sync-alt')
 					.removeClass('fa-spin');
+
+				for(var iIdx in this.options.show_button_css_classes)
+				{
+					this.show_button_elem.addClass(this.options.show_button_css_classes[iIdx]);
+				}
 			},
 
 			// Helpers

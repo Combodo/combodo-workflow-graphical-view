@@ -8,6 +8,7 @@
 			</stimuli_to_hide>
 			<disabled_classes type="array"></disabled_classes>
 			<disabled_portals type="array"></disabled_portals>
+			<show_button_css_classes type="string">fas fa-map-marked-alt</show_button_css_classes>
 		</parameters>
 	</module_parameters>
 </itop_design>
