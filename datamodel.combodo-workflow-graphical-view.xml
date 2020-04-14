@@ -4,7 +4,7 @@
 		<parameters id="combodo-workflow-graphical-view" _delta="define">
 			<hide_internal_stimuli type="boolean">false</hide_internal_stimuli>
 			<stimuli_to_hide type="hash">
-				<class id="UserRequest">ev_autoresolve</class>
+				<UserRequest>ev_autoresolve</UserRequest>
 			</stimuli_to_hide>
 			<disabled_classes type="array"></disabled_classes>
 			<disabled_portals type="array"></disabled_portals>
@@ -12,4 +12,3 @@
 		</parameters>
 	</module_parameters>
 </itop_design>
-s
