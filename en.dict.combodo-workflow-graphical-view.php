@@ -18,6 +18,6 @@
  */
 
 Dict::Add('EN US', 'English', 'English', array(
-	'lifecycle-sneakpeek:UI:Button:ShowLifecycle' => 'Show workflow',
-	'lifecycle-sneakpeek:UI:Modal:Title' => 'Workflow',
+	'workflow-graphical-view:UI:Button:ShowLifecycle' => 'Show workflow',
+	'workflow-graphical-view:UI:Modal:Title' => 'Workflow',
 ));

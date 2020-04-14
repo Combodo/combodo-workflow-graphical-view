@@ -38,8 +38,8 @@
 $(function()
 {
 	// the widget definition, where 'itop' is the namespace,
-	// 'lifecycle_sneakpeek_backoffice' the widget name
-	$.widget( 'itop.lifecycle_sneakpeek_backoffice', $.itop.lifecycle_sneakpeek,
+	// 'workflow_graphical_view_backoffice' the widget name
+	$.widget( 'itop.workflow_graphical_view_backoffice', $.itop.workflow_graphical_view,
 		{
 			// default options
 			options:
@@ -53,7 +53,7 @@ $(function()
 				var me = this;
 
 				this.element
-					.addClass('lifecycle_sneakpeek_backoffice');
+					.addClass('workflow_graphical_view_backoffice');
 
 				this._super();
 			},
@@ -68,7 +68,7 @@ $(function()
 			_destroy: function()
 			{
 				this.element
-					.removeClass('lifecycle_sneakpeek_backoffice');
+					.removeClass('workflow_graphical_view_backoffice');
 
 				this._super();
 			},

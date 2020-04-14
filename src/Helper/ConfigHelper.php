@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU Affero General Public License
  */
 
-namespace Combodo\iTop\Extension\LifecycleSneakPeek\Helper;
+namespace Combodo\iTop\Extension\WorkflowGraphicalView\Helper;
 
 use MetaModel;
 use UserRights;
@@ -26,12 +26,12 @@ use UserRights;
 /**
  * Class ConfigHelper
  *
- * @package Combodo\iTop\Extension\LifecycleSneakPeek\Helper
+ * @package Combodo\iTop\Extension\WorkflowGraphicalView\Helper
  * @author Guillaume Lajarige <guillaume.lajarige@combodo.com>
  */
 class ConfigHelper
 {
-	const MODULE_CODE = 'combodo-lifecycle-sneakpeek';
+	const MODULE_CODE = 'combodo-workflow-graphical-view';
 
 	/** @var array */
 	const DEFAULT_SETTING_STIMULI_TO_HIDE = array();

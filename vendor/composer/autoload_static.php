@@ -9,23 +9,23 @@ class ComposerStaticInit8e40dbcbd20280eb1498a6aa84fb9d6f
     public static $prefixLengthsPsr4 = array (
         'C' => 
         array (
-            'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\' => 42,
+            'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\' => 45,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\' => 
+        'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
     public static $classMap = array (
-        'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\Controller\\AjaxOperationsController' => __DIR__ . '/../..' . '/src/Controller/AjaxOperationsController.php',
-        'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\Extension\\ConsoleUIExtension' => __DIR__ . '/../..' . '/src/Hook/ConsoleUIExtension.php',
-        'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\Helper\\ConfigHelper' => __DIR__ . '/../..' . '/src/Helper/ConfigHelper.php',
-        'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\Service\\GraphvizGenerator' => __DIR__ . '/../..' . '/src/Service/GraphvizGenerator.php',
-        'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\Service\\LifecycleManager' => __DIR__ . '/../..' . '/src/Service/LifecycleManager.php',
+        'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Extension\\ConsoleUIExtension' => __DIR__ . '/../..' . '/src/Hook/ConsoleUIExtension.php',
+        'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Extension\\PortalUIExtension' => __DIR__ . '/../..' . '/src/Hook/PortalUIExtension.php',
+        'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Helper\\ConfigHelper' => __DIR__ . '/../..' . '/src/Helper/ConfigHelper.php',
+        'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Service\\GraphvizGenerator' => __DIR__ . '/../..' . '/src/Service/GraphvizGenerator.php',
+        'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Service\\LifecycleManager' => __DIR__ . '/../..' . '/src/Service/LifecycleManager.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -17,11 +17,11 @@
  * You should have received a copy of the GNU Affero General Public License
  */
 
-namespace Combodo\iTop\Extension\LifecycleSneakPeek;
+namespace Combodo\iTop\Extension\WorkflowGraphicalView;
 
-use Combodo\iTop\Extension\LifecycleSneakPeek\Helper\ConfigHelper;
-use Combodo\iTop\Extension\LifecycleSneakPeek\Service\GraphvizGenerator;
-use Combodo\iTop\Extension\LifecycleSneakPeek\Service\LifecycleManager;
+use Combodo\iTop\Extension\WorkflowGraphicalView\Helper\ConfigHelper;
+use Combodo\iTop\Extension\WorkflowGraphicalView\Service\GraphvizGenerator;
+use Combodo\iTop\Extension\WorkflowGraphicalView\Service\LifecycleManager;
 use Exception;
 use LoginWebPage;
 use MetaModel;

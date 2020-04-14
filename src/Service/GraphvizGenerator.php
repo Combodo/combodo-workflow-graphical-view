@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU Affero General Public License
  */
 
-namespace Combodo\iTop\Extension\LifecycleSneakPeek\Service;
+namespace Combodo\iTop\Extension\WorkflowGraphicalView\Service;
 
 use DBObject;
 use Exception;
@@ -30,7 +30,7 @@ use StimulusInternal;
 /**
  * Class GraphvizGenerator
  *
- * @package Combodo\iTop\Extension\LifecycleSneakPeek\Service
+ * @package Combodo\iTop\Extension\WorkflowGraphicalView\Service
  * @author  Guillaume Lajarige <guillaume.lajarige@combodo.com>
  */
 class GraphvizGenerator

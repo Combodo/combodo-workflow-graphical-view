@@ -38,8 +38,8 @@
 $(function()
 {
 	// the widget definition, where 'itop' is the namespace,
-	// 'lifecycle_sneakpeek' the widget name
-	$.widget( 'itop.lifecycle_sneakpeek',
+	// 'workflow_graphical_view' the widget name
+	$.widget( 'itop.workflow_graphical_view',
 		{
 			// default options
 			options:
@@ -82,7 +82,7 @@ $(function()
 				}
 
 				this.element
-					.addClass('lifecycle_sneakpeek');
+					.addClass('workflow_graphical_view');
 
 				this._initialize();
 				this._bindEvents();
@@ -98,7 +98,7 @@ $(function()
 			_destroy: function()
 			{
 				this.element
-					.removeClass('lifecycle_sneakpeek');
+					.removeClass('workflow_graphical_view');
 			},
 			// _setOptions is called with a hash of all options that are changing
 			// always refresh when changing options
@@ -129,7 +129,7 @@ $(function()
 				var me = this;
 
 				// Show graph
-				this.element.find('.lcsp-show-graph').on('click', function(oEvent){
+				this.element.find('.wgv-show-graph').on('click', function(oEvent){
 					// Prevent scroll to top due to anchor
 					oEvent.preventDefault();
 
@@ -140,7 +140,7 @@ $(function()
 			_makeShowButtonElem: function()
 			{
 				this.show_button_elem = $('<a></a>')
-					.addClass('lcsp-show-graph')
+					.addClass('wgv-show-graph')
 					.attr('href', '#')
 					.attr('title', this.options.dict.show_button_tooltip);
 
@@ -264,7 +264,7 @@ $(function()
 			{
 				if(window.console && window.console.log)
 				{
-					console.log('Lifecycle sneak peek: ' + sMessage);
+					console.log('Workflow graphical view: ' + sMessage);
 				}
 			}
 		}

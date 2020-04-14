@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <itop_design xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.7">
 	<module_parameters>
-		<parameters id="combodo-lifecycle-sneakpeek" _delta="define">
+		<parameters id="combodo-workflow-graphical-view" _delta="define">
 			<hide_internal_stimuli type="boolean">false</hide_internal_stimuli>
 			<stimuli_to_hide type="hash">
 				<class id="UserRequest">ev_autoresolve</class>
@@ -12,3 +12,4 @@
 		</parameters>
 	</module_parameters>
 </itop_design>
+s

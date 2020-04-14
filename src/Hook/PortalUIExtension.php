@@ -17,18 +17,18 @@
  * You should have received a copy of the GNU Affero General Public License
  */
 
-namespace Combodo\iTop\Extension\LifecycleSneakPeek\Extension;
+namespace Combodo\iTop\Extension\WorkflowGraphicalView\Extension;
 
 use AbstractPortalUIExtension;
-use Combodo\iTop\Extension\LifecycleSneakPeek\Helper\ConfigHelper;
-use Combodo\iTop\Extension\LifecycleSneakPeek\Service\LifecycleManager;
+use Combodo\iTop\Extension\WorkflowGraphicalView\Helper\ConfigHelper;
+use Combodo\iTop\Extension\WorkflowGraphicalView\Service\LifecycleManager;
 use Dict;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Class PortalUIExtension
  *
- * @package Combodo\iTop\Extension\LifecycleSneakPeek\Extension
+ * @package Combodo\iTop\Extension\WorkflowGraphicalView\Extension
  * @author  Guillaume Lajarige <guillaume.lajarige@combodo.com>
  */
 class PortalUIExtension extends AbstractPortalUIExtension
@@ -88,13 +88,13 @@ class PortalUIExtension extends AbstractPortalUIExtension
 		$sShowButtonCSSClassesAsJSON = json_encode(LifecycleManager::GetShowButtonCSSClasses());
 		$sEndpoint = LifecycleManager::GetEndpoint();
 
-		$sDictEntryShowButtonTooltipAsJSON = json_encode(Dict::S('lifecycle-sneakpeek:UI:Button:ShowLifecycle'));
-		$sDictEntryModalTitleAsJSON = json_encode(Dict::S('lifecycle-sneakpeek:UI:Modal:Title'));
+		$sDictEntryShowButtonTooltipAsJSON = json_encode(Dict::S('workflow-graphical-view:UI:Button:ShowLifecycle'));
+		$sDictEntryModalTitleAsJSON = json_encode(Dict::S('workflow-graphical-view:UI:Modal:Title'));
 		$sDictEntryModalCloseButtonLabelAsJSON = json_encode(Dict::S('UI:Button:Close'));
 
 		$sJS .= <<<JS
-// Lifecycle sneakpeek
-function InstantiateLifecycleSneakpeekOnObject(oFormElem)
+// Workflow graphical view
+function InstantiateWorkflowGraphicalViewOnObject(oFormElem)
 {
     var oEligibleClasses = {$sEligibleClassesAsJSON};
     
@@ -131,7 +131,7 @@ $('body').on('loaded.bs.modal', function (oEvent) {
         var oForm = $(oEvent.target).find('.modal-content .object-details');
         if(oForm.length > 0)
         {
-            InstantiateLifecycleSneakpeekOnObject(oForm);
+            InstantiateWorkflowGraphicalViewOnObject(oForm);
         }
     }, 400);
 });
@@ -139,7 +139,7 @@ $('body').on('loaded.bs.modal', function (oEvent) {
 // Instantiate on objects already in the page
 $(document).ready(function(){
     $('.object-details').each(function(){
-        InstantiateLifecycleSneakpeekOnObject($(this));
+        InstantiateWorkflowGraphicalViewOnObject($(this));
     });
 });
 JS;

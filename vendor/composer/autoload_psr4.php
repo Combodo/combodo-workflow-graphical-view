@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\' => array($baseDir . '/src'),
+    'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\' => array($baseDir . '/src'),
 );

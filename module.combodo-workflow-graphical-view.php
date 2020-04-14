@@ -20,11 +20,11 @@
 /** @noinspection PhpUnhandledExceptionInspection */
 SetupWebPage::AddModule(
 	__FILE__, // Path to the current file, all other file names are relative to the directory containing this file
-	'combodo-lifecycle-sneakpeek/1.0.0-dev',
+	'combodo-workflow-graphical-view/1.0.0-dev',
 	array(
 		// Identification
 		//
-		'label' => 'Lifecycle graphical sneak peek',
+		'label' => 'Workflow graphical view',
 		'category' => 'ui',
 
 		// Setup

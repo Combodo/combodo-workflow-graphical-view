@@ -19,12 +19,12 @@
 /* Note: Imports path is the /css folder */
 @import 'css-variables.scss';
 
-.lifecycle_sneakpeek{
+.workflow_graphical_view{
 	.field_value,
 	.form-control-static{
 		display: inline-block;
 	}
-	a.lcsp-show-graph{
+	a.wgv-show-graph{
 		margin-left: 8px;
 		font-size: 0.9em; /* Use EM to be relative with the value text size */
 		color: inherit; /* Remove hyperlink blue for regular text color */

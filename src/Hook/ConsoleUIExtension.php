@@ -18,17 +18,17 @@
  * You should have received a copy of the GNU Affero General Public License
  */
 
-namespace Combodo\iTop\Extension\LifecycleSneakPeek\Extension;
+namespace Combodo\iTop\Extension\WorkflowGraphicalView\Extension;
 
 use AbstractApplicationUIExtension;
-use Combodo\iTop\Extension\LifecycleSneakPeek\Helper\ConfigHelper;
-use Combodo\iTop\Extension\LifecycleSneakPeek\Service\LifecycleManager;
+use Combodo\iTop\Extension\WorkflowGraphicalView\Helper\ConfigHelper;
+use Combodo\iTop\Extension\WorkflowGraphicalView\Service\LifecycleManager;
 use WebPage;
 
 /**
  * Class ConsoleUIExtension
  *
- * @package Combodo\iTop\Extension\LifecycleSneakPeek\Extension
+ * @package Combodo\iTop\Extension\WorkflowGraphicalView\Extension
  * @author Guillaume Lajarige <guillaume.lajarige@combodo.com>
  */
 class ConsoleUIExtension extends AbstractApplicationUIExtension

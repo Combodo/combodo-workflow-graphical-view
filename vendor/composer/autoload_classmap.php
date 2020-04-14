@@ -6,9 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\Controller\\AjaxOperationsController' => $baseDir . '/src/Controller/AjaxOperationsController.php',
-    'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\Extension\\ConsoleUIExtension' => $baseDir . '/src/Hook/ConsoleUIExtension.php',
-    'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\Helper\\ConfigHelper' => $baseDir . '/src/Helper/ConfigHelper.php',
-    'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\Service\\GraphvizGenerator' => $baseDir . '/src/Service/GraphvizGenerator.php',
-    'Combodo\\iTop\\Extension\\LifecycleSneakPeek\\Service\\LifecycleManager' => $baseDir . '/src/Service/LifecycleManager.php',
+    'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Extension\\ConsoleUIExtension' => $baseDir . '/src/Hook/ConsoleUIExtension.php',
+    'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Extension\\PortalUIExtension' => $baseDir . '/src/Hook/PortalUIExtension.php',
+    'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Helper\\ConfigHelper' => $baseDir . '/src/Helper/ConfigHelper.php',
+    'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Service\\GraphvizGenerator' => $baseDir . '/src/Service/GraphvizGenerator.php',
+    'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Service\\LifecycleManager' => $baseDir . '/src/Service/LifecycleManager.php',
 );

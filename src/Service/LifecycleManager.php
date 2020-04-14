@@ -18,9 +18,9 @@
  * You should have received a copy of the GNU Affero General Public License
  */
 
-namespace Combodo\iTop\Extension\LifecycleSneakPeek\Service;
+namespace Combodo\iTop\Extension\WorkflowGraphicalView\Service;
 
-use Combodo\iTop\Extension\LifecycleSneakPeek\Helper\ConfigHelper;
+use Combodo\iTop\Extension\WorkflowGraphicalView\Helper\ConfigHelper;
 use ContextTag;
 use DBObject;
 use Dict;
@@ -117,7 +117,7 @@ class LifecycleManager
 		$sBaseUrl = utils::GetAbsoluteUrlModulesRoot().ConfigHelper::GetModuleCode().'/asset/js/';
 
 		return array(
-			$sBaseUrl.'lifecycle_sneakpeek.js',
+			$sBaseUrl.'workflow_graphical_view.js',
 			$sBaseUrl.static::GetJSWidgetNameForUI().'.js',
 		);
 	}
@@ -129,7 +129,7 @@ class LifecycleManager
 	 */
 	public static function GetJSWidgetNameForUI()
 	{
-		return ContextTag::Check(ContextTag::TAG_PORTAL) ? 'lifecycle_sneakpeek_portal' : 'lifecycle_sneakpeek_backoffice';
+		return ContextTag::Check(ContextTag::TAG_PORTAL) ? 'workflow_graphical_view_portal' : 'workflow_graphical_view_backoffice';
 	}
 
 	/**
@@ -189,8 +189,8 @@ class LifecycleManager
 		$sShowButtonCSSClassesAsJSON = json_encode(static::GetShowButtonCSSClasses());
 		$sEndpoint = static::GetEndpoint();
 
-		$sDictEntryShowButtonTooltipAsJSON = Dict::S('lifecycle-sneakpeek:UI:Button:ShowLifecycle');
-		$sDictEntryModalTitleAsJSON = Dict::S('lifecycle-sneakpeek:UI:Modal:Title');
+		$sDictEntryShowButtonTooltipAsJSON = Dict::S('workflow-graphical-view:UI:Button:ShowLifecycle');
+		$sDictEntryModalTitleAsJSON = Dict::S('workflow-graphical-view:UI:Modal:Title');
 		$sDictEntryModalCloseButtonLabelAsJSON = Dict::S('UI:Button:Close');
 
 		return <<<JS
