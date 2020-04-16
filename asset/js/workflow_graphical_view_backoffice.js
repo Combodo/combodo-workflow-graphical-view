@@ -116,7 +116,7 @@ $(function()
 					],
 					position: { 'my': 'center top', 'at': 'center top+10%' }
 				});
-				this.modal_elem.html(this.options.content);
+				this.modal_elem.html(this.options.content + this.options.legend);
 			},
 			_openModal: function()
 			{

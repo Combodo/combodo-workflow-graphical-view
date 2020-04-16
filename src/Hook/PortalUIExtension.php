@@ -86,6 +86,7 @@ class PortalUIExtension extends AbstractPortalUIExtension
 
 		$sWidgetName = LifecycleManager::GetJSWidgetNameForUI();
 		$sShowButtonCSSClassesAsJSON = json_encode(LifecycleManager::GetShowButtonCSSClasses());
+		$sLegendHTMLAsJSON = json_encode(LifecycleManager::GetLegendHTMLMarkup());
 		$sEndpoint = LifecycleManager::GetEndpoint();
 
 		$sDictEntryShowButtonTooltipAsJSON = json_encode(Dict::S('workflow-graphical-view:UI:Button:ShowLifecycle'));
@@ -114,6 +115,7 @@ function InstantiateWorkflowGraphicalViewOnObject(oFormElem)
 		object_id: sObjID,
 		object_state: sObjState,
 		show_button_css_classes: {$sShowButtonCSSClassesAsJSON},
+		legend: {$sLegendHTMLAsJSON},
 		endpoint: '{$sEndpoint}',
 		dict: {
 			show_button_tooltip: '{$sDictEntryShowButtonTooltipAsJSON}',

@@ -162,6 +162,28 @@ class LifecycleManager
 	}
 
 	/**
+	 * Return a string containing the HTML markup of the legend
+	 *
+	 * @return string
+	 */
+	public static function GetLegendHTMLMarkup()
+	{
+		$sDictEntryModalLegendItemCurrentState = utils::HtmlEntities(Dict::S('workflow-graphical-view:UI:Legend:Item:CurrentState'));
+		$sDictEntryModalLegendItemUserStimuli = utils::HtmlEntities(Dict::S('workflow-graphical-view:UI:Legend:Item:UserStimuli'));
+		$sDictEntryModalLegendItemInternalStimuli = utils::HtmlEntities(Dict::S('workflow-graphical-view:UI:Legend:Item:InternalStimuli'));
+
+		return <<<HTML
+<div class="lcsn-graph-legend" role="legend">
+	<ul>
+		<li role="current-state"><span role="decoration"></span><span role="text">{$sDictEntryModalLegendItemCurrentState}</span></li>
+		<li role="user-stimuli"><span role="decoration"></span><span role="text">{$sDictEntryModalLegendItemUserStimuli}</span></li>
+		<li role="internal-stimuli"><span role="decoration"></span><span role="text">{$sDictEntryModalLegendItemInternalStimuli}</span></li>
+	</ul>
+</div>
+HTML;
+	}
+
+	/**
 	 * LifecycleManager constructor.
 	 *
 	 * @param \DBObject $oObject
@@ -187,11 +209,12 @@ class LifecycleManager
 
 		$sWidgetName = $this->GetJSWidgetNameForUI();
 		$sShowButtonCSSClassesAsJSON = json_encode(static::GetShowButtonCSSClasses());
+		$sLegendHTMLAsJSON = json_encode(static::GetLegendHTMLMarkup());
 		$sEndpoint = static::GetEndpoint();
 
-		$sDictEntryShowButtonTooltipAsJSON = Dict::S('workflow-graphical-view:UI:Button:ShowLifecycle');
-		$sDictEntryModalTitleAsJSON = Dict::S('workflow-graphical-view:UI:Modal:Title');
-		$sDictEntryModalCloseButtonLabelAsJSON = Dict::S('UI:Button:Close');
+		$sDictEntryShowButtonTooltipAsJSON = json_encode(Dict::S('workflow-graphical-view:UI:Button:ShowLifecycle'));
+		$sDictEntryModalTitleAsJSON = json_encode(Dict::S('workflow-graphical-view:UI:Modal:Title'));
+		$sDictEntryModalCloseLabelAsJSON = json_encode(Dict::S('UI:Button:Close'));
 
 		return <<<JS
 \$('.object-details[data-object-class="{$sObjClass}"][data-object-id="{$sObjID}"] *[data-attribute-code="{$sObjStateAttCode}"][data-attribute-flag-read-only="true"]').{$sWidgetName}({
@@ -199,11 +222,12 @@ class LifecycleManager
 	object_id: '{$sObjID}',
 	object_state: '{$sObjState}',
 	show_button_css_classes: {$sShowButtonCSSClassesAsJSON},
+	legend: {$sLegendHTMLAsJSON},
 	endpoint: '{$sEndpoint}',
 	dict: {
-		show_button_tooltip: '{$sDictEntryShowButtonTooltipAsJSON}',
-		modal_title: '{$sDictEntryModalTitleAsJSON}',
-		modal_close_button_label: '{$sDictEntryModalCloseButtonLabelAsJSON}'
+		show_button_tooltip: {$sDictEntryShowButtonTooltipAsJSON},
+		modal_title: {$sDictEntryModalTitleAsJSON},
+		modal_close_label: {$sDictEntryModalCloseLabelAsJSON}
 	}
 });
 JS;

@@ -20,4 +20,7 @@
 Dict::Add('EN US', 'English', 'English', array(
 	'workflow-graphical-view:UI:Button:ShowLifecycle' => 'Show workflow',
 	'workflow-graphical-view:UI:Modal:Title' => 'Workflow',
+	'workflow-graphical-view:UI:Legend:Item:CurrentState' => 'Current state',
+	'workflow-graphical-view:UI:Legend:Item:UserStimuli' => 'User stimuli',
+	'workflow-graphical-view:UI:Legend:Item:InternalStimuli' => 'Internal stimuli',
 ));

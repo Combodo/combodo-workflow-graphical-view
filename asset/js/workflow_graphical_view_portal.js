@@ -96,7 +96,7 @@ $(function()
 				// Note: Unfortunately we have to manually rebuild the modal markup as for now the CombodoPortalToolbox does not allow to specify all parts of the modal.
 				// This has been tracked under N°2906.
 				var sModalContent = '<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h4 class="modal-title">'+this.options.dict.modal_title+'</h4></div>'+
-				'<div class="modal-body lcsn-graph-container">' + this.options.content + '</div>' +
+				'<div class="modal-body lcsn-graph-container">' + this.options.content + this.options.legend + '</div>' +
 				'<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">'+this.options.dict.modal_close_label+'</button></div>';
 
 				CombodoPortalToolbox.OpenModal({
