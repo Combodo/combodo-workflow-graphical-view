@@ -112,7 +112,7 @@ $(function()
 					autoOpen: false,
 					title: this.options.dict.modal_title,
 					buttons: [
-						{ text: this.options.dict.modal_close_button_label, click: function() { $(this).dialog( "close" ); } },
+						{ text: this.options.dict.modal_close_label, click: function() { $(this).dialog( "close" ); } },
 					],
 					position: { 'my': 'center top', 'at': 'center top+10%' }
 				});
