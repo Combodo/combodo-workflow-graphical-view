@@ -25,6 +25,7 @@ use Exception;
 use IssueLog;
 use MetaModel;
 use ReflectionClass;
+use SetupUtils;
 use StimulusInternal;
 
 /**
@@ -72,6 +73,7 @@ class GraphvizGenerator
 		$sDotDefinition = static::GenerateDotDefinition($aStatesConnections);
 
 		// Generate temp. DOT file
+		SetupUtils::builddir(static::$sTmpFolderPath);
 		$sDotFilePath = static::$sTmpFolderPath.$sObjClass."-".$iObjID."-".date("YmdHis").".dot";
 		static::CreateDotFile($sDotFilePath, $sDotDefinition);
 
