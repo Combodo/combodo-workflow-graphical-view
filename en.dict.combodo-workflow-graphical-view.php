@@ -23,4 +23,6 @@ Dict::Add('EN US', 'English', 'English', array(
 	'workflow-graphical-view:UI:Legend:Item:CurrentState' => 'Current state',
 	'workflow-graphical-view:UI:Legend:Item:UserStimuli' => 'User stimuli',
 	'workflow-graphical-view:UI:Legend:Item:InternalStimuli' => 'Internal stimuli',
+	'workflow-graphical-view:Error:NoStateAttribute' => 'Cannot generate lifecycle graph for %1$s as it has no state attribute.',
+	'workflow-graphical-view:Error:GraphVizGeneration' => 'Whoops! Lifecycle could not be generated, check the error log for more information.',
 ));

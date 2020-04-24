@@ -21,6 +21,7 @@
 namespace Combodo\iTop\Extension\WorkflowGraphicalView\Service;
 
 use DBObject;
+use Dict;
 use Exception;
 use IssueLog;
 use MetaModel;
@@ -65,7 +66,7 @@ class GraphvizGenerator
 		$sStateAttCode = MetaModel::GetStateAttributeCode($sObjClass);
 		if (empty($sStateAttCode))
 		{
-			throw new Exception("TOTR: Cannot generate lifecycle graph for $sObjClass as it has no state attribute.");
+			throw new Exception(Dict::Format('workflow-graphical-view:Error:NoStateAttribute', $sObjClass));
 		}
 
 		// Prepare graph definition
@@ -264,7 +265,7 @@ EOF
 );
 
 			// Throw exception for GUI
-			throw new Exception('TOTR: Whoops! Lifecycle could not be generated, check the error log for more information.');
+			throw new Exception(Dict::S('flow-graphical-view:Error:GraphVizGeneration'));
 		}
 
 		// Delete definition file if necessary
