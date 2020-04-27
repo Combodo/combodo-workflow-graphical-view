@@ -118,9 +118,9 @@ function InstantiateWorkflowGraphicalViewOnObject(oFormElem)
 		legend: {$sLegendHTMLAsJSON},
 		endpoint: '{$sEndpoint}',
 		dict: {
-			show_button_tooltip: '{$sDictEntryShowButtonTooltipAsJSON}',
-			modal_title: '{$sDictEntryModalTitleAsJSON}',
-			modal_close_button_label: '{$sDictEntryModalCloseButtonLabelAsJSON}'
+			show_button_tooltip: {$sDictEntryShowButtonTooltipAsJSON},
+			modal_title: {$sDictEntryModalTitleAsJSON},
+			modal_close_button_label: {$sDictEntryModalCloseButtonLabelAsJSON}
 		}
 	});
     
