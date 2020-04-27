@@ -165,7 +165,7 @@ $(function()
 			},
 			_onLoadContentDone: function(oData)
 			{
-				this.options.content = '<div role="image"><img src="data:image/png;base64,'+oData+'" alt="Lifecycle" style="max-width: 96%;" /></div>';
+				this.options.content = '<img role="image" src="data:image/png;base64,'+oData+'" alt="Lifecycle" style="max-width: 96%;" />';
 			},
 			_onLoadContentFail: function(sErrorAsHTML)
 			{

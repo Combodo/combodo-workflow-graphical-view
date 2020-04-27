@@ -40,7 +40,10 @@
 .lcsn-graph-container{
 	text-align: center;
 
-	.lcsn-graph-legend{
+	[role="image"]{
+		transition: all 0.2s linear;
+	}
+	.lcsn-graph-legend[role="legend"]{
 		ul{
 			display: flex;
 			justify-content: center;

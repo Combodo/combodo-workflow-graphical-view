@@ -105,7 +105,7 @@ $(function()
 			{
 				this.modal_elem.dialog({
 					height: 'auto',
-					maxHeight: $(window).height() - 40,
+					maxHeight: $(window).height() * 0.90,
 					width: $(window).width() * 0.90,
 					maxWidth: $(window).width() - 40,
 					modal: true,
@@ -120,7 +120,23 @@ $(function()
 			},
 			_openModal: function()
 			{
+				var me = this;
 				this.modal_elem.dialog('open');
+
+				// Updating position / size because image is loaded after the modal is created...
+				setTimeout(function(){
+					var oRealModalElem = me.modal_elem.closest('.ui-dialog');
+					// - Modal
+					var iWindowHeight = $(window).innerHeight();
+					var iModalHeight = oRealModalElem.outerHeight();
+					var iNewModalTopOffset = Math.floor((iWindowHeight - iModalHeight) / 2);
+					oRealModalElem.css('top', iNewModalTopOffset + 'px');
+					// - Image
+					var iGraphContainerHeight = oRealModalElem.find('.lcsn-graph-container').innerHeight();
+					var iGraphLegendHeight = oRealModalElem.find('.lcsn-graph-container [role="legend"]').outerHeight();
+					var iGraphImageMaxHeight = iGraphContainerHeight - iGraphLegendHeight - 80;
+					oRealModalElem.find('.lcsn-graph-container [role="image"]').css('max-height', iGraphImageMaxHeight + "px");
+				}, 500);
 			}
 		}
 	);
