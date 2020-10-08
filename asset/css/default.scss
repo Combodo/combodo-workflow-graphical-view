@@ -24,6 +24,11 @@
 	.form-control-static{
 		display: inline-block;
 	}
+	/* When show button is actually an existing element, reused by the extension */
+	&.wgv-show-graph{
+		cursor: pointer; /* Make sure cursor is a pointer no matter the tag it is one */
+	}
+	/* When show button is created by the extension */
 	a.wgv-show-graph{
 		margin-left: 8px;
 		font-size: 0.9em; /* Use EM to be relative with the value text size */

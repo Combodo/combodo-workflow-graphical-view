@@ -112,7 +112,7 @@ $(function()
 				var me = this;
 
 				// Show graph
-				this.element.find('.wgv-show-graph').on('click', function(oEvent){
+				this.show_button_elem.on('click', function(oEvent){
 					// Prevent scroll to top due to anchor
 					oEvent.preventDefault();
 
