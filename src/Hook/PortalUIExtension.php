@@ -101,7 +101,7 @@ function InstantiateWorkflowGraphicalViewOnObject(oFormElem)
     
     // Check if object is eligible
     var sObjClass = oFormElem.attr('data-object-class');
-    if(oEligibleClasses[sObjClass] === 'undefined')
+    if(oEligibleClasses[sObjClass] === undefined)
     {
         return false;
     }
