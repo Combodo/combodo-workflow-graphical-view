@@ -53,7 +53,7 @@ class LifecycleManager
 
 		// Check if has state attribute
 		if (version_compare(ITOP_DESIGN_LATEST_VERSION , '3.0') < 0) {
-			$sStateAttCode = GetStateAttributeCode($sClass);
+			$sStateAttCode = MetaModel::GetStateAttributeCode($sClass);
 			if (empty($sStateAttCode))
 			{
 				return false;

@@ -122,7 +122,7 @@ $(function()
 			// Make the jQuery object of the "show graph" element
 			_makeShowButtonElem: function()
 			{
-				if (CombodoTooltip) {	// if version iTop >= 3.0.0
+				if (typeof(CombodoTooltip)!== 'undefined') {	// if version iTop >= 3.0.0
 					this.show_button_elem = $('<a></a>')
 						.addClass('wgv-show-graph')
 						.attr('href', '#')
