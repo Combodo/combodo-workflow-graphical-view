@@ -52,10 +52,14 @@ class LifecycleManager
 		}
 
 		// Check if has state attribute
-		$sStateAttCode = MetaModel::GetStateAttributeCode($sClass);
-		if (empty($sStateAttCode))
-		{
-			return false;
+		if (version_compare(ITOP_DESIGN_LATEST_VERSION , '3.0') < 0) {
+			$sStateAttCode = GetStateAttributeCode($sClass);
+			if (empty($sStateAttCode))
+			{
+				return false;
+			}
+		} else {
+			return MetaModel::HasLifecycle($sClass);
 		}
 
 		return true;
@@ -129,7 +133,7 @@ class LifecycleManager
 	 */
 	public static function GetJSWidgetNameForUI()
 	{
-		return ContextTag::Check(ContextTag::TAG_PORTAL) ? 'workflow_graphical_view_portal' : 'workflow_graphical_view_backoffice';
+			return ContextTag::Check(ContextTag::TAG_PORTAL) ? 'workflow_graphical_view_portal' : 'workflow_graphical_view_backoffice';
 	}
 
 	/**
@@ -216,21 +220,39 @@ HTML;
 		$sDictEntryModalTitleAsJSON = json_encode(Dict::S('workflow-graphical-view:UI:Modal:Title'));
 		$sDictEntryModalCloseLabelAsJSON = json_encode(Dict::S('UI:Button:Close'));
 
-		return <<<JS
+		if (version_compare(ITOP_DESIGN_LATEST_VERSION , '3.0') < 0) {
+			return <<<JS
 \$('.object-details[data-object-class="{$sObjClass}"][data-object-id="{$sObjID}"] *[data-attribute-code="{$sObjStateAttCode}"][data-attribute-flag-read-only="true"]').{$sWidgetName}({
-	object_class: '{$sObjClass}',
-	object_id: '{$sObjID}',
-	object_state: '{$sObjState}',
-	show_button_css_classes: {$sShowButtonCSSClassesAsJSON},
-	legend: {$sLegendHTMLAsJSON},
-	endpoint: '{$sEndpoint}',
-	dict: {
-		show_button_tooltip: {$sDictEntryShowButtonTooltipAsJSON},
-		modal_title: {$sDictEntryModalTitleAsJSON},
-		modal_close_label: {$sDictEntryModalCloseLabelAsJSON}
-	}
-});
+				object_class: '{$sObjClass}',
+				object_id: '{$sObjID}',
+				object_state: '{$sObjState}',
+				show_button_css_classes: {$sShowButtonCSSClassesAsJSON},
+				legend: {$sLegendHTMLAsJSON},
+				endpoint: '{$sEndpoint}',
+				dict: {
+					show_button_tooltip: {$sDictEntryShowButtonTooltipAsJSON},
+					modal_title: {$sDictEntryModalTitleAsJSON},
+					modal_close_label: {$sDictEntryModalCloseLabelAsJSON}
+				}
+			});
 JS;
+		} else {
+			return <<<JS
+				\$('.ibo-object-details[data-object-class="{$sObjClass}"][data-object-id="{$sObjID}"] *[data-attribute-code="{$sObjStateAttCode}"][data-attribute-flag-read-only="true"]').{$sWidgetName}({
+				object_class: '{$sObjClass}',
+				object_id: '{$sObjID}',
+				object_state: '{$sObjState}',
+				show_button_css_classes: {$sShowButtonCSSClassesAsJSON},
+				legend: {$sLegendHTMLAsJSON},
+				endpoint: '{$sEndpoint}',
+				dict: {
+					show_button_tooltip: {$sDictEntryShowButtonTooltipAsJSON},
+					modal_title: {$sDictEntryModalTitleAsJSON},
+					modal_close_label: {$sDictEntryModalCloseLabelAsJSON}
+				}
+			});
+JS;
+		}
 	}
 
 	/**

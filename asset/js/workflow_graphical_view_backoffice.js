@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2020 Combodo SARL
+ * Copyright (C) 2013-2021 Combodo SARL
  *
  * This file is part of iTop.
  *
@@ -16,25 +16,6 @@
  * You should have received a copy of the GNU Affero General Public License
  */
 
-/*
- * Copyright (C) 2013-2019 Combodo SARL
- *
- * This file is part of iTop.
- *
- * iTop is free software; you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * iTop is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- */
-
-;
 $(function()
 {
 	// the widget definition, where 'itop' is the namespace,
@@ -86,20 +67,27 @@ $(function()
 
 			_addShowButtonToDOM: function()
 			{
-				// Add to DOM
-				this.show_button_elem.appendTo( this.element.find('.field_data') );
-				// Add tooltip
-				this.show_button_elem.qtip({
-					show: { delay: 100 },
-					position: { corner: { target: 'topMiddle', tooltip: 'bottomMiddle'}},
-					style: {
-						name: 'dark',
-						tip: {
-							corner: 'bottomMiddle',
-							size: { x: 15, y: 10 }
+				if (CombodoTooltip) {	// if version iTop >= 3.0.0
+					// Add to DOM
+					this.show_button_elem.appendTo( this.element.find('.ibo-field--value') );
+					// Add tooltip
+					CombodoTooltip.InitTooltipFromMarkup(this.show_button_elem, true);
+				} else {//dead code since 3.0.0
+					// Add to DOM
+					this.show_button_elem.appendTo(this.element.find('.field_data'));
+					// Add tooltip
+					this.show_button_elem.qtip({
+						show: {delay: 100},
+						position: {corner: {target: 'topMiddle', tooltip: 'bottomMiddle'}},
+						style: {
+							name: 'dark',
+							tip: {
+								corner: 'bottomMiddle',
+								size: {x: 15, y: 10}
+							}
 						}
-					}
-				});
+					});
+				}
 			},
 			_prepareModal: function()
 			{
