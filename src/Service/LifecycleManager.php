@@ -73,25 +73,37 @@ class LifecycleManager
 	 */
 	public static function EnumEligibleClasses()
 	{
+		// Check if has state attribute
 		$aEligibleClasses = array();
-		foreach(MetaModel::EnumRootClasses() as $sRootClass)
-		{
-			$sStateAttCode = MetaModel::GetStateAttributeCode($sRootClass);
-			if(!empty($sStateAttCode))
-			{
-				$aEligibleClasses[$sRootClass] = array('state_att_code' => $sStateAttCode);
-			}
+		if (version_compare(ITOP_DESIGN_LATEST_VERSION , '3.0') < 0) {
+			foreach (MetaModel::EnumRootClasses() as $sRootClass) {
+				$sStateAttCode = MetaModel::GetStateAttributeCode($sRootClass);
+				if (!empty($sStateAttCode)) {
+					$aEligibleClasses[$sRootClass] = array('state_att_code' => $sStateAttCode);
+				}
 
-			foreach(MetaModel::EnumChildClasses($sRootClass) as $sChildClass)
-			{
-				$sStateAttCode = MetaModel::GetStateAttributeCode($sChildClass);
-				if(!empty($sStateAttCode))
-				{
-					$aEligibleClasses[$sChildClass] = array('state_att_code' => $sStateAttCode);
+				foreach (MetaModel::EnumChildClasses($sRootClass) as $sChildClass) {
+					$sStateAttCode = MetaModel::GetStateAttributeCode($sChildClass);
+					if (!empty($sStateAttCode)) {
+						$aEligibleClasses[$sChildClass] = array('state_att_code' => $sStateAttCode);
+					}
+				}
+			}
+		} else {
+			foreach (MetaModel::EnumRootClasses() as $sRootClass) {
+				$sStateAttCode = MetaModel::GetStateAttributeCode($sRootClass);
+				if (MetaModel::HasLifecycle($sRootClass)) {
+					$aEligibleClasses[$sRootClass] = array('state_att_code' => $sStateAttCode);
+				}
+
+				foreach (MetaModel::EnumChildClasses($sRootClass) as $sChildClass) {
+					$sStateAttCode = MetaModel::GetStateAttributeCode($sChildClass);
+					if (MetaModel::HasLifecycle($sChildClass)) {
+						$aEligibleClasses[$sChildClass] = array('state_att_code' => $sStateAttCode);
+					}
 				}
 			}
 		}
-
 		return $aEligibleClasses;
 	}
 
