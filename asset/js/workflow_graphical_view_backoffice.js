@@ -67,12 +67,12 @@ $(function()
 
 			_addShowButtonToDOM: function()
 			{
-				if (typeof(CombodoTooltip) !== 'undefined') {	// if version iTop >= 3.0.0
+				if (typeof(CombodoTooltip) !== 'undefined') { // iTop 3.0+
 					// Add to DOM
 					this.show_button_elem.appendTo( this.element.find('.ibo-field--value') );
 					// Add tooltip
 					CombodoTooltip.InitTooltipFromMarkup(this.show_button_elem, true);
-				} else {//dead code since 3.0.0
+				} else { // iTop 2.7 and older
 					// Add to DOM
 					this.show_button_elem.appendTo(this.element.find('.field_data'));
 					// Add tooltip

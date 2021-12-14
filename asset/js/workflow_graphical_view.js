@@ -122,16 +122,16 @@ $(function()
 			// Make the jQuery object of the "show graph" element
 			_makeShowButtonElem: function()
 			{
-				if (typeof(CombodoTooltip)!== 'undefined') {	// if version iTop >= 3.0.0
-					this.show_button_elem = $('<a></a>')
-						.addClass('wgv-show-graph')
-						.attr('href', '#')
+				this.show_button_elem = $('<a></a>')
+					.addClass('wgv-show-graph')
+					.attr('href', '#');
+
+				if (typeof(CombodoTooltip)!== 'undefined') { // iTop 3.0+
+					this.show_button_elem
 						.attr('aria-label', this.options.dict.show_button_tooltip)
 						.attr('data-tooltip-content', this.options.dict.show_button_tooltip);
-				} else {//dead code since 3.0.0
-					this.show_button_elem = $('<a></a>')
-						.addClass('wgv-show-graph')
-						.attr('href', '#')
+				} else { // iTop 2.7 and older
+					this.show_button_elem
 						.attr('title', this.options.dict.show_button_tooltip)
 				}
 

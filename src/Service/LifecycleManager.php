@@ -232,9 +232,9 @@ HTML;
 		$sDictEntryModalTitleAsJSON = json_encode(Dict::S('workflow-graphical-view:UI:Modal:Title'));
 		$sDictEntryModalCloseLabelAsJSON = json_encode(Dict::S('UI:Button:Close'));
 
-		if (version_compare(ITOP_DESIGN_LATEST_VERSION , '3.0') < 0) {
-			return <<<JS
-\$('.object-details[data-object-class="{$sObjClass}"][data-object-id="{$sObjID}"] *[data-attribute-code="{$sObjStateAttCode}"][data-attribute-flag-read-only="true"]').{$sWidgetName}({
+		$sAttributeSelectorPrefix = (version_compare(ITOP_DESIGN_LATEST_VERSION , '3.0', '>=') && ContextTag::Check(ContextTag::TAG_CONSOLE)) ? '.ibo-object-details' : '.object-details';
+		return <<<JS
+			\$('{$sAttributeSelectorPrefix}[data-object-class="{$sObjClass}"][data-object-id="{$sObjID}"] *[data-attribute-code="{$sObjStateAttCode}"][data-attribute-flag-read-only="true"]').{$sWidgetName}({
 				object_class: '{$sObjClass}',
 				object_id: '{$sObjID}',
 				object_state: '{$sObjState}',
@@ -248,23 +248,6 @@ HTML;
 				}
 			});
 JS;
-		} else {
-			return <<<JS
-				\$('.ibo-object-details[data-object-class="{$sObjClass}"][data-object-id="{$sObjID}"] *[data-attribute-code="{$sObjStateAttCode}"][data-attribute-flag-read-only="true"]').{$sWidgetName}({
-				object_class: '{$sObjClass}',
-				object_id: '{$sObjID}',
-				object_state: '{$sObjState}',
-				show_button_css_classes: {$sShowButtonCSSClassesAsJSON},
-				legend: {$sLegendHTMLAsJSON},
-				endpoint: '{$sEndpoint}',
-				dict: {
-					show_button_tooltip: {$sDictEntryShowButtonTooltipAsJSON},
-					modal_title: {$sDictEntryModalTitleAsJSON},
-					modal_close_label: {$sDictEntryModalCloseLabelAsJSON}
-				}
-			});
-JS;
-		}
 	}
 
 	/**
