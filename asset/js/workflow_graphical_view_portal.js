@@ -88,8 +88,10 @@ $(function()
 			{
 				// Add to DOM
 				this.show_button_elem.appendTo( this.element.find('.form_field_control') );
-				// Add tooltip
-				this.show_button_elem.tooltip();
+				if (typeof(CombodoTooltip) == 'undefined') {  // iTop 2.7 and older
+					// Add tooltip
+					this.show_button_elem.tooltip();
+				}
 			},
 			_prepareModal: function()
 			{
