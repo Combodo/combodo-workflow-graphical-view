@@ -2,7 +2,7 @@
 
 ## About
 
-This extension let you eEasily have a look at the object workflow by hovering its state.
+This extension lets you easily have a look at the object workflow by hovering its state.
 
 ## Download
 
@@ -15,4 +15,4 @@ When downloading directly from GitHub (by cloning or downloading as zip) you wil
 
 ## About Us
 
-This iTop module development is sponsored, led and supported by [Combodo](https://www.combodo.com).
+This iTop module development is sponsored, led, and supported by [Combodo](https://www.combodo.com).
