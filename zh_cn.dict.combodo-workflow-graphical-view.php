@@ -16,7 +16,6 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  */
-
 Dict::Add('ZH CN', 'Chinese', '简体中文', array(
 	'workflow-graphical-view:UI:Button:ShowLifecycle' => 'Show workflow~~',
 	'workflow-graphical-view:UI:Modal:Title' => 'Workflow~~',
