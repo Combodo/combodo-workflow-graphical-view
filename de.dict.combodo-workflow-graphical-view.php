@@ -17,11 +17,11 @@
  * You should have received a copy of the GNU Affero General Public License
  */
 Dict::Add('DE DE', 'German', 'Deutsch', array(
-	'workflow-graphical-view:UI:Button:ShowLifecycle' => 'Show workflow~~',
-	'workflow-graphical-view:UI:Modal:Title' => 'Workflow~~',
-	'workflow-graphical-view:UI:Legend:Item:CurrentState' => 'Current state~~',
-	'workflow-graphical-view:UI:Legend:Item:UserStimuli' => 'User stimuli~~',
-	'workflow-graphical-view:UI:Legend:Item:InternalStimuli' => 'Internal stimuli~~',
-	'workflow-graphical-view:Error:NoStateAttribute' => 'Cannot generate lifecycle graph for %1$s as it has no state attribute.~~',
-	'workflow-graphical-view:Error:GraphVizGeneration' => 'Whoops! Lifecycle could not be generated, check the error log for more information.~~',
+	'workflow-graphical-view:UI:Button:ShowLifecycle' => 'Ablauf anzeigen',
+	'workflow-graphical-view:UI:Modal:Title' => 'Ablauf',
+	'workflow-graphical-view:UI:Legend:Item:CurrentState' => 'Aktueller Status',
+	'workflow-graphical-view:UI:Legend:Item:UserStimuli' => 'Benutzer-Statusübergänge',
+	'workflow-graphical-view:UI:Legend:Item:InternalStimuli' => 'Interne Statusübergänge',
+	'workflow-graphical-view:Error:NoStateAttribute' => 'Es kann kein Lebenszyklusdiagramm für %1$s erstellt werden, da es kein Statusattribut hat.',
+	'workflow-graphical-view:Error:GraphVizGeneration' => 'Hoppla! Der Lebenszyklus konnte nicht erstellt werden. Überprüfen Sie das Error-Log für weitere Informationen.',
 ));
