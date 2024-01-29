@@ -61,7 +61,7 @@ class ConfigHelper
 	 */
 	public static function GetModuleSetting($sProperty)
 	{
-		$sDefaultValueConstName = get_class().'::DEFAULT_SETTING_' . strtoupper($sProperty);
+		$sDefaultValueConstName = static::class . '::DEFAULT_SETTING_' . strtoupper($sProperty);
 		$defaultValue = (defined($sDefaultValueConstName)) ? constant($sDefaultValueConstName) : null;
 
 		return MetaModel::GetModuleSetting(static::GetModuleCode(), $sProperty, $defaultValue);
