@@ -9,6 +9,8 @@ return array(
     'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Extension\\ConsoleUIExtension' => $baseDir . '/src/Hook/ConsoleUIExtension.php',
     'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Extension\\PortalUIExtension' => $baseDir . '/src/Hook/PortalUIExtension.php',
     'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Helper\\ConfigHelper' => $baseDir . '/src/Helper/ConfigHelper.php',
+    'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Helper\\LifeCycleGraphHelper' => $baseDir . '/src/Helper/LifeCycleGraphHelper.php',
+    'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Portal\\Router\\LifecycleBrickRouter' => $baseDir . '/src/Portal/Router/LifecycleBrickRouter.php',
     'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Service\\GraphvizGenerator' => $baseDir . '/src/Service/GraphvizGenerator.php',
     'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Service\\LifecycleManager' => $baseDir . '/src/Service/LifecycleManager.php',
 );

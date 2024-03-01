@@ -26,6 +26,8 @@ class ComposerStaticInit8e40dbcbd20280eb1498a6aa84fb9d6f
         'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Helper\\ConfigHelper' => __DIR__ . '/../..' . '/src/Helper/ConfigHelper.php',
         'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Service\\GraphvizGenerator' => __DIR__ . '/../..' . '/src/Service/GraphvizGenerator.php',
         'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Service\\LifecycleManager' => __DIR__ . '/../..' . '/src/Service/LifecycleManager.php',
+        'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Helper\\LifeCycleGraphHelper' =>  __DIR__ . '/../..'. '/src/Helper/LifeCycleGraphHelper.php',
+         'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Portal\\Router\\LifecycleBrickRouter' =>  __DIR__ . '/../..'. '/src/Portal/Router/LifecycleBrickRouter.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
