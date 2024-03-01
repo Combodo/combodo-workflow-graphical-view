@@ -18,6 +18,4 @@ Dict::Add('CS CZ', 'Czech', 'Čeština', [
 	'workflow-graphical-view:UI:Legend:Item:InternalStimuli' => 'Internal stimuli~~',
 	'workflow-graphical-view:UI:Legend:Item:UserStimuli' => 'User stimuli~~',
 	'workflow-graphical-view:UI:Modal:Title' => 'Workflow~~',
-	'workflow-graphical-view:UI:Legend:Item:UserStimuli' => 'User stimuli~~',
-	'workflow-graphical-view:UI:Modal:Title' => 'Workflow~~',
-	]);
+]);
