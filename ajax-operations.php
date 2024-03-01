@@ -23,7 +23,6 @@ use Combodo\iTop\Extension\WorkflowGraphicalView\Helper\LifecycleGraphHelper;
 use Exception;
 use LoginWebPage;
 use MetaModel;
-use Symfony\Component\HttpFoundation\Response;
 use utils;
 
 // Note: approot.inc.php is relative to /pages/exc.php, so calls to this page must be done through it!
@@ -53,7 +52,7 @@ try
 }
 catch(Exception $oException)
 {
-	http_response_code(Response::HTTP_INTERNAL_SERVER_ERROR);
+	http_response_code(500);
 	header('Content-type: text/html');
 	echo "<h3>{$oException->getMessage()}</h3>";
 }
