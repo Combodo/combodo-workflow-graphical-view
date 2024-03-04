@@ -26,7 +26,7 @@ use Combodo\iTop\Portal\Routing\ItopExtensionsExtraRoutes;
 ItopExtensionsExtraRoutes::AddRoutes(
     array(
         array('pattern' => '/lifecycle/view',
-            'callback' => 'Combodo\\iTop\\Portal\\Controller\\LifecycleBrickController::ViewObjectLifecycleAction',
+            'callback' => 'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Portal\\Controller\\LifecycleBrickController::ViewObjectLifecycleAction',
             'bind' => 'p_lifecycle_view_object'
         ),
     )
@@ -43,7 +43,7 @@ if (version_compare(ITOP_DESIGN_LATEST_VERSION, 3.1, '>=')) {
     /** @noinspection PhpUnhandledExceptionInspection */
     ItopExtensionsExtraRoutes::AddControllersClasses(
         array(
-            'Combodo\iTop\Portal\Controller\LifecycleBrickController'
+            'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Portal\\Controller\\LifecycleBrickController'
         )
     );
 }

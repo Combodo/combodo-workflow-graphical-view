@@ -38,8 +38,8 @@ SetupWebPage::AddModule(
 		'datamodel' => array(
 			// Module's autoloader
 			'vendor/autoload.php',
-			'src/Portal/Controller/LifecycleBrickController.php',
 			// Explicitly load APIs classes
+			'src/Portal/Router/LifecycleBrickRouter.php',
 			'src/Hook/ConsoleUIExtension.php',
 			'src/Hook/PortalUIExtension.php',
 		),

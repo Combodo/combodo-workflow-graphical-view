@@ -5,10 +5,11 @@
  * @license     http://opensource.org/licenses/AGPL-3.0
  */
 
-namespace Combodo\iTop\Portal\Controller;
+namespace Combodo\iTop\Extension\WorkflowGraphicalView\Portal\Controller;
 
 use ApprovalScheme;
 use Combodo\iTop\Extension\WorkflowGraphicalView\Helper\LifecycleGraphHelper;
+use Combodo\iTop\Portal\Controller\ObjectController;
 use MetaModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
