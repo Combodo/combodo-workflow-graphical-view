@@ -41,13 +41,11 @@ class ConsoleUIExtension extends AbstractApplicationUIExtension
 	public function OnDisplayProperties($oObject, WebPage $oPage, $bEditMode = false)
 	{
 		// Check if extension allowed
-		if(!ConfigHelper::IsAllowed('backoffice'))
-		{
+		if (!ConfigHelper::IsAllowed('backoffice')) {
 			return;
 		}
 
-		if(!LifecycleManager::IsEligibleObject($oObject))
-		{
+		if (!LifecycleManager::IsEligibleObject($oObject)) {
 			return;
 		}
 
@@ -56,14 +54,30 @@ class ConsoleUIExtension extends AbstractApplicationUIExtension
 		$aJSFiles = $oLM->GetJSFilesUrls();
 		$sJSWidgetSnippet = $oLM->GetJSWidgetSnippetForObjectDetails();
 
-		// Add resources
-		foreach($aCSSFiles as $sCSSFile)
-		{
-			$oPage->add_linked_stylesheet($sCSSFile);
+		/**
+		 * @since 3.2.0
+		 */
+		//remove require itopdesignformat at the same time as version_compare(ITOP_DESIGN_LATEST_VERSION , '3.2') < 0
+		if (!defined("ITOP_DESIGN_LATEST_VERSION")) {
+			require_once APPROOT.'setup/itopdesignformat.class.inc.php';
 		}
-		foreach($aJSFiles as $sJSFile)
+		if (version_compare(ITOP_DESIGN_LATEST_VERSION, 3.2, '>=')) {
+			// Add resources
+			foreach ($aCSSFiles as $sCSSFile) {
+				$oPage->LinkStylesheetFromURI($sCSSFile);
+			}
+			foreach ($aJSFiles as $sJSFile) {
+				$oPage->LinkScriptFromURI($sJSFile);
+			}
+		} else
 		{
-			$oPage->add_linked_script($sJSFile);
+			// Add resources
+			foreach ($aCSSFiles as $sCSSFile) {
+				$oPage->add_linked_stylesheet($sCSSFile);
+			}
+			foreach ($aJSFiles as $sJSFile) {
+				$oPage->add_linked_script($sJSFile);
+			}
 		}
 
 		// Add script
