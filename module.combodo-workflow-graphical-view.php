@@ -39,6 +39,7 @@ SetupWebPage::AddModule(
 			// Module's autoloader
 			'vendor/autoload.php',
 			// Explicitly load APIs classes
+			'src/Portal/Router/LifecycleBrickRouter.php',
 			'src/Hook/ConsoleUIExtension.php',
 			'src/Hook/PortalUIExtension.php',
 		),

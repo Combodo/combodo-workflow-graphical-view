@@ -19,9 +19,7 @@
 
 namespace Combodo\iTop\Extension\WorkflowGraphicalView;
 
-use Combodo\iTop\Extension\WorkflowGraphicalView\Helper\ConfigHelper;
-use Combodo\iTop\Extension\WorkflowGraphicalView\Service\GraphvizGenerator;
-use Combodo\iTop\Extension\WorkflowGraphicalView\Service\LifecycleManager;
+use Combodo\iTop\Extension\WorkflowGraphicalView\Helper\LifecycleGraphHelper;
 use Exception;
 use LoginWebPage;
 use MetaModel;
@@ -45,50 +43,12 @@ try
 {
 	// Retrieve object
 	$oObject = MetaModel::GetObject($sObjClass, $iObjID);
+	[ $sContent, $sHttpResponseCode,$aHeaders]  = LifecycleGraphHelper::GetLifecycleGraph($sObjClass, $iObjID, $oObject, $sOutputFormat);
 
-	if(!LifecycleManager::IsEligibleObject($oObject))
-	{
-		throw new Exception('TOTR: Cannot show lifecycle for '.$sObjClass.'#'.$iObjID.', object is not eligible.');
-	}
+	//http_response_code($sHttpResponseCode);
+	header('Content-type: '.$aHeaders['Content-type']);
+	echo $sContent;
 
-	// Get module parameters
-	// - stimuli to hide
-	$aStimuliToHide = array();
-	$aModuleParameter = ConfigHelper::GetModuleSetting('stimuli_to_hide');
-	if(is_array($aModuleParameter) && isset($aModuleParameter[$sObjClass]))
-	{
-		foreach(explode(',', $aModuleParameter[$sObjClass]) as $sStimulusCode)
-		{
-			$aStimuliToHide[] = trim($sStimulusCode);
-		}
-	}
-	// - internal stimuli to hide
-	$bHideInternalStimuli = ConfigHelper::GetModuleSetting('hide_internal_stimuli');
-
-	$oLM = new LifecycleManager($oObject);
-	$sImageFilePath = $oLM->GetLifecycleImage($aStimuliToHide, $bHideInternalStimuli);
-
-	// Send content
-	switch($sOutputFormat)
-	{
-		case 'base64':
-			header('Content-type: text/plain');
-			echo base64_encode(file_get_contents($sImageFilePath));
-			break;
-
-		case 'binary':
-		default:
-			header('Content-type: image/png');
-			echo file_get_contents($sImageFilePath);
-			break;
-	}
-
-
-	// If image in temp. dir., we delete it (means that it's not the default image)
-	if(stripos($sImageFilePath, GraphvizGenerator::$sTmpFolderPath) !== false)
-	{
-		@unlink($sImageFilePath);
-	}
 }
 catch(Exception $oException)
 {
@@ -96,10 +56,3 @@ catch(Exception $oException)
 	header('Content-type: text/html');
 	echo "<h3>{$oException->getMessage()}</h3>";
 }
-
-//$oController = new AjaxOperationsController(MODULESROOT.ConfigHelper::GetModuleCode().'/view', ConfigHelper::GetModuleCode());
-//
-//// Allow parallel execution
-//session_write_close();
-//
-//$oController->HandleOperation();
