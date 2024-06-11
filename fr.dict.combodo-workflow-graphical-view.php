@@ -6,9 +6,6 @@
  * @license    https://opensource.org/licenses/AGPL-3.0
  *
  */
-/**
- *
- */
 Dict::Add('FR FR', 'French', 'Français', [
 	'workflow-graphical-view:Error:GraphVizGeneration' => 'Oups ! Le cycle de vie n\'a pas pu être chargé, vérifiez le journal des erreurs pour plus d\'informations.',
 	'workflow-graphical-view:Error:NoStateAttribute' => 'Impossible de générer le graphique du cycle de vie pour %1$s car la classe n\'a pas d\'attribut portant le cycle de vie.',
