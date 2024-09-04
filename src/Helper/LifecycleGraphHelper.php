@@ -31,11 +31,12 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class LifecycleGraphHelper
 {
-	public static function GetLifecycleGraph($sObjClass, $iObjID, $oObject, $sOutputFormat)
+	public static function GetLifecycleGraph($oObject, $sOutputFormat)
 	{
+		$sObjClass = get_class($oObject);
 		try {
 			if (!LifecycleManager::IsEligibleObject($oObject)) {
-				throw new Exception(Dict::Format('workflow-graphical-view:Error:ObjectNotEligible', $sObjClass, $iObjID));
+				throw new Exception(Dict::Format('workflow-graphical-view:Error:ObjectNotEligible', $sObjClass, $oObject->GetKey()));
 			}
 
 			// Get module parameters

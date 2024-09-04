@@ -9,55 +9,41 @@ namespace Combodo\iTop\Extension\WorkflowGraphicalView\Portal\Controller;
 
 use ApprovalScheme;
 use Combodo\iTop\Extension\WorkflowGraphicalView\Helper\LifecycleGraphHelper;
-use Combodo\iTop\Portal\Controller\ObjectController;
+use Combodo\iTop\Portal\Controller\AbstractController;
+use Combodo\iTop\Portal\Helper\RequestManipulatorHelper;
+use Combodo\iTop\Portal\Helper\SecurityHelper;
+use Dict;
 use MetaModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use UserRights;
-use utils;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class ApprovalBrickController
  *
  * @package Combodo\iTop\Portal\Controller
  */
-class LifecycleBrickController extends ObjectController
+class LifecycleBrickController extends AbstractController
 {
-	public function GetObject($sObjectClass, $sObjectId){
-        	$oObject = MetaModel::GetObject($sObjectClass, $sObjectId, false /* MustBeFound */,
-			$this->oScopeValidatorHelper->IsAllDataAllowedForScope(UserRights::ListProfiles(), $sObjectClass));
-			return $oObject;
-	}
-
-	/**
-	 * @param \Symfony\Component\HttpFoundation\Request $oRequest
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 * @throws \ArchivedObjectException
-	 * @throws \Combodo\iTop\Portal\Brick\BrickNotFoundException
-	 * @throws \CoreException
-	 * @throws \CoreUnexpectedValue
-	 * @throws \DictExceptionMissingString
-	 * @throws \MySQLException
-	 * @throws \OQLException
-	 */
-	public function ViewObjectLifecycleAction(Request $oRequest)
+	public function __construct(
+		protected SecurityHelper $oSecurityHelper,
+		protected RequestManipulatorHelper $oRequestManipulatorHelper
+	)
 	{
-		$sObjClass = utils::ReadParam('object_class', '', false, 'class');
-		$iObjID = (int) utils::ReadParam('object_id', 0, false, 'integer');
-		$sOutputFormat = utils::ReadParam('output_format', 'image');
-		try
-		{
-			$oObject = MetaModel::GetObject($sObjClass, $iObjID, true, 	$this->oScopeValidatorHelper->IsAllDataAllowedForScope(UserRights::ListProfiles(), $sObjClass));
-			[ $sContent, $sHttpResponseCode,$aHeaders] =  LifecycleGraphHelper::GetLifecycleGraph($sObjClass, $iObjID, $oObject, $sOutputFormat);
-			return new Response($sContent, $sHttpResponseCode, $aHeaders);
-		}
-		catch(Exception $oException)
-		{
-			$aHeaders['Content-type'] = 'text/html';
-			return new Response( "<h3>{$oException->getMessage()}</h3>",Response::HTTP_INTERNAL_SERVER_ERROR, $aHeaders);
-		}
 	}
 
+	public function ViewObjectLifecycleAction(Request $oRequest): Response
+	{
+		$sObjClass = $this->oRequestManipulatorHelper->ReadParam('object_class', '',  FILTER_SANITIZE_SPECIAL_CHARS);
+		$iObjID = (int)  $this->oRequestManipulatorHelper->ReadParam('object_id', 0, FILTER_SANITIZE_NUMBER_INT);
+		$sOutputFormat =  $this->oRequestManipulatorHelper->ReadParam('output_format', 'image', FILTER_SANITIZE_SPECIAL_CHARS);
 
+		if ($this->oSecurityHelper->IsActionAllowed(UR_ACTION_READ, $sObjClass, $iObjID) === false) {
+			throw new HttpException(Response::HTTP_NOT_FOUND, Dict::S('UI:ObjectDoesNotExist'));
+		}
+
+		$oObject = MetaModel::GetObject($sObjClass, $iObjID, true, true);
+		[$sContent, $sHttpResponseCode, $aHeaders] =  LifecycleGraphHelper::GetLifecycleGraph($oObject, $sOutputFormat);
+		return new Response($sContent, $sHttpResponseCode, $aHeaders);
+	}
 }

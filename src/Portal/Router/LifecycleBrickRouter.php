@@ -22,28 +22,22 @@
 
 use Combodo\iTop\Portal\Routing\ItopExtensionsExtraRoutes;
 
-/** @noinspection PhpUnhandledExceptionInspection */
-ItopExtensionsExtraRoutes::AddRoutes(
-    array(
-        array('pattern' => '/lifecycle/view',
-            'callback' => 'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Portal\\Controller\\LifecycleBrickController::ViewObjectLifecycleAction',
-            'bind' => 'p_lifecycle_view_object'
-        ),
-    )
-);
-
-/**
- * @since 3.1.0
- */
-//remove require itopdesignformat at the same time as version_compare(ITOP_DESIGN_LATEST_VERSION , '3.0') < 0
-if (! defined("ITOP_DESIGN_LATEST_VERSION")) {
-	require_once APPROOT.'setup/itopdesignformat.class.inc.php';
-}
-if (version_compare(ITOP_DESIGN_LATEST_VERSION, 3.1, '>=')) {
-    /** @noinspection PhpUnhandledExceptionInspection */
-    ItopExtensionsExtraRoutes::AddControllersClasses(
-        array(
-            'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Portal\\Controller\\LifecycleBrickController'
-        )
-    );
+// protection if portal module is not installed
+if (class_exists("Combodo\\iTop\\Portal\\Routing\\ItopExtensionsExtraRoutes")) {
+	/** @noinspection PhpUnhandledExceptionInspection */
+	ItopExtensionsExtraRoutes::AddControllersClasses(
+		[
+			'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Portal\\Controller\\LifecycleBrickController'
+		]
+	);
+	/** @noinspection PhpUnhandledExceptionInspection */
+	ItopExtensionsExtraRoutes::AddRoutes(
+	    [
+		    [
+			    'pattern'  => '/lifecycle/view',
+			    'callback' => 'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Portal\\Controller\\LifecycleBrickController::ViewObjectLifecycleAction',
+			    'bind'     => 'p_lifecycle_view_object'
+		    ],
+	    ]
+	);
 }

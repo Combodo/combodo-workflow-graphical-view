@@ -32,20 +32,19 @@ require_once(APPROOT.'/application/startup.inc.php');
 require_once APPROOT.'/application/loginwebpage.class.inc.php';
 
 // Check user is logged in
-LoginWebPage::DoLoginEx(null, false);
+LoginWebPage::DoLoginEx('backoffice', false);
 
 // Retrieve parameters
-$sObjClass = utils::ReadParam('object_class', '', false, 'class');
-$iObjID = (int) utils::ReadParam('object_id', 0, false, 'integer');
-$sOutputFormat = utils::ReadParam('output_format', 'image');
+$sObjClass = utils::ReadParam('object_class', '', false, utils::ENUM_SANITIZATION_FILTER_CLASS);
+$iObjID = (int) utils::ReadParam('object_id', 0, false, utils::ENUM_SANITIZATION_FILTER_INTEGER);
+$sOutputFormat = utils::ReadParam('output_format', 'image', false, utils::ENUM_SANITIZATION_FILTER_PARAMETER);
 
 try
 {
 	// Retrieve object
 	$oObject = MetaModel::GetObject($sObjClass, $iObjID);
-	[ $sContent, $sHttpResponseCode,$aHeaders]  = LifecycleGraphHelper::GetLifecycleGraph($sObjClass, $iObjID, $oObject, $sOutputFormat);
+	[ $sContent, $sHttpResponseCode,$aHeaders]  = LifecycleGraphHelper::GetLifecycleGraph($oObject, $sOutputFormat);
 
-	//http_response_code($sHttpResponseCode);
 	header('Content-type: '.$aHeaders['Content-type']);
 	echo $sContent;
 
