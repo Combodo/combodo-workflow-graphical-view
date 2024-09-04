@@ -44,9 +44,8 @@ try
 {
 	// Retrieve object
 	$oObject = MetaModel::GetObject($sObjClass, $iObjID);
-	[ $sContent, $sHttpResponseCode,$aHeaders]  = LifecycleGraphHelper::GetLifecycleGraph($sObjClass, $iObjID, $oObject, $sOutputFormat);
+	[ $sContent, $sHttpResponseCode,$aHeaders]  = LifecycleGraphHelper::GetLifecycleGraph($oObject, $sOutputFormat);
 
-	//http_response_code($sHttpResponseCode);
 	header('Content-type: '.$aHeaders['Content-type']);
 	echo $sContent;
 
