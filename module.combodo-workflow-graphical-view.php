@@ -20,7 +20,7 @@
 /** @noinspection PhpUnhandledExceptionInspection */
 SetupWebPage::AddModule(
 	__FILE__, // Path to the current file, all other file names are relative to the directory containing this file
-	'combodo-workflow-graphical-view/1.1.3',
+	'combodo-workflow-graphical-view/1.2.0',
 	array(
 		// Identification
 		//
@@ -29,7 +29,10 @@ SetupWebPage::AddModule(
 
 		// Setup
 		//
-		'dependencies' => array(),
+		'dependencies' => array(
+			//optional dependance with the portal as it can be used in the back office only
+			'itop-portal-base/3.2.0 || itop-structure/3.2.0',
+			),
 		'mandatory' => false,
 		'visible' => true,
 
