@@ -43,7 +43,7 @@ class LifecycleBrickController extends AbstractController
 		}
 
 		$oObject = MetaModel::GetObject($sObjClass, $iObjID, true, true);
-		[$sContent, $sHttpResponseCode, $aHeaders] =  LifecycleGraphHelper::GetLifecycleGraph($oObject, $sOutputFormat);
+		[$sContent, $sHttpResponseCode, $aHeaders] = LifecycleGraphHelper::GetLifecycleGraph($oObject, $sOutputFormat);
 		return new Response($sContent, $sHttpResponseCode, $aHeaders);
 	}
 }
