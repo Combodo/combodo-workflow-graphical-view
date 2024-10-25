@@ -21,4 +21,4 @@ Dict::Add('DA DA', 'Danish', 'Dansk', [
 	'workflow-graphical-view:Error:NoStateAttribute' => 'Cannot generate lifecycle graph for %1$s as it has no state attribute.~~',
 	'workflow-graphical-view:Error:GraphVizGeneration' => 'Whoops! Lifecycle could not be generated, check the error log for more information.~~',
 	'workflow-graphical-view:Error:ObjectNotEligible' => 'Cannot show lifecycle for %1$s#%2$s, object is not eligible~~',
-));
+]);
