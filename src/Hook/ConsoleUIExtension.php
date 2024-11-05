@@ -54,29 +54,12 @@ class ConsoleUIExtension extends AbstractApplicationUIExtension
 		$aJSFiles = $oLM->GetJSFilesUrls();
 		$sJSWidgetSnippet = $oLM->GetJSWidgetSnippetForObjectDetails();
 
-		/**
-		 * @since 3.2.0
-		 */
-		//remove require itopdesignformat at the same time as version_compare(ITOP_DESIGN_LATEST_VERSION , '3.2') < 0
-		if (!defined("ITOP_DESIGN_LATEST_VERSION")) {
-			require_once APPROOT.'setup/itopdesignformat.class.inc.php';
+		// Add resources
+		foreach ($aCSSFiles as $sCSSFile) {
+			$oPage->LinkStylesheetFromURI($sCSSFile);
 		}
-		if (version_compare(ITOP_DESIGN_LATEST_VERSION, 3.2, '>=')) {
-			// Add resources
-			foreach ($aCSSFiles as $sCSSFile) {
-				$oPage->LinkStylesheetFromURI($sCSSFile);
-			}
-			foreach ($aJSFiles as $sJSFile) {
-				$oPage->LinkScriptFromURI($sJSFile);
-			}
-		} else
-		{
-			$oPage->LinkStylesheetFromAppRoot($sCSSFile);
-			}
-		foreach($aJSFiles as $sJSFile)
-		{
-			$oPage->LinkScriptFromModule($sJSFile);
-			}
+		foreach ($aJSFiles as $sJSFile) {
+			$oPage->LinkScriptFromURI($sJSFile);
 		}
 
 		// Add script
