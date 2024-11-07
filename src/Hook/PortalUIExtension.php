@@ -24,6 +24,7 @@ use Combodo\iTop\Extension\WorkflowGraphicalView\Helper\ConfigHelper;
 use Combodo\iTop\Extension\WorkflowGraphicalView\Service\LifecycleManager;
 use Dict;
 use Symfony\Component\DependencyInjection\Container;
+use utils;
 
 /**
  * Class PortalUIExtension
@@ -45,7 +46,7 @@ class PortalUIExtension extends AbstractPortalUIExtension
 			return array();
 		}
 
-		return LifecycleManager::GetCSSFilesUrls();
+		return array_map(function($value) { return utils::GetAbsoluteUrlAppRoot().$value; }, LifecycleManager::GetCSSFilesUrls());
 	}
 
 	/**
@@ -60,7 +61,7 @@ class PortalUIExtension extends AbstractPortalUIExtension
 			return array();
 		}
 
-		return LifecycleManager::GetJSFilesUrls();
+		return array_map(function($value) { return utils::GetAbsoluteUrlModulesRoot().$value; }, LifecycleManager::GetJSFilesUrls());
 	}
 
 	/**

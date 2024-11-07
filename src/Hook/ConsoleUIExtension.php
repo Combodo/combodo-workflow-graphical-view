@@ -59,11 +59,11 @@ class ConsoleUIExtension extends AbstractApplicationUIExtension
 		// Add resources
 		foreach($aCSSFiles as $sCSSFile)
 		{
-			$oPage->add_linked_stylesheet($sCSSFile);
+			$oPage->LinkStylesheetFromAppRoot($sCSSFile);
 		}
 		foreach($aJSFiles as $sJSFile)
 		{
-			$oPage->add_linked_script($sJSFile);
+			$oPage->LinkScriptFromModule($sJSFile);
 		}
 
 		// Add script

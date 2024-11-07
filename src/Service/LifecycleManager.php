@@ -118,7 +118,7 @@ class LifecycleManager
 		$sDefaultCSSRelPath = utils::GetCSSFromSASS('env-'.utils::GetCurrentEnvironment().'/'.ConfigHelper::GetModuleCode().'/asset/css/default.scss');
 
 		return array(
-			utils::GetAbsoluteUrlAppRoot().$sDefaultCSSRelPath,
+			$sDefaultCSSRelPath,
 		);
 	}
 
@@ -130,7 +130,7 @@ class LifecycleManager
 	 */
 	public static function GetJSFilesUrls()
 	{
-		$sBaseUrl = utils::GetAbsoluteUrlModulesRoot().ConfigHelper::GetModuleCode().'/asset/js/';
+		$sBaseUrl = ConfigHelper::GetModuleCode().'/asset/js/';
 
 		return array(
 			$sBaseUrl.'workflow_graphical_view.js',
