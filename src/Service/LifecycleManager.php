@@ -51,16 +51,7 @@ class LifecycleManager
 			return false;
 		}
 
-		// Check if has state attribute
-		if (version_compare(ITOP_DESIGN_LATEST_VERSION , '3.0') < 0) {
-			$sStateAttCode = MetaModel::GetStateAttributeCode($sClass);
-			if (empty($sStateAttCode))
-			{
-				return false;
-			}
-		} else {
-			return MetaModel::HasLifecycle($sClass);
-		}
+		return MetaModel::HasLifecycle($sClass);
 
 		return true;
 	}
@@ -75,32 +66,17 @@ class LifecycleManager
 	{
 		// Check if has state attribute
 		$aEligibleClasses = array();
-		if (version_compare(ITOP_DESIGN_LATEST_VERSION , '3.0') < 0) {
-			foreach (MetaModel::EnumRootClasses() as $sRootClass) {
-				$sStateAttCode = MetaModel::GetStateAttributeCode($sRootClass);
-				if (!empty($sStateAttCode)) {
-					$aEligibleClasses[$sRootClass] = array('state_att_code' => $sStateAttCode);
-				}
 
-				foreach (MetaModel::EnumChildClasses($sRootClass) as $sChildClass) {
-					$sStateAttCode = MetaModel::GetStateAttributeCode($sChildClass);
-					if (!empty($sStateAttCode)) {
-						$aEligibleClasses[$sChildClass] = array('state_att_code' => $sStateAttCode);
-					}
-				}
+		foreach (MetaModel::EnumRootClasses() as $sRootClass) {
+			$sStateAttCode = MetaModel::GetStateAttributeCode($sRootClass);
+			if (MetaModel::HasLifecycle($sRootClass)) {
+				$aEligibleClasses[$sRootClass] = array('state_att_code' => $sStateAttCode);
 			}
-		} else {
-			foreach (MetaModel::EnumRootClasses() as $sRootClass) {
-				$sStateAttCode = MetaModel::GetStateAttributeCode($sRootClass);
-				if (MetaModel::HasLifecycle($sRootClass)) {
-					$aEligibleClasses[$sRootClass] = array('state_att_code' => $sStateAttCode);
-				}
 
-				foreach (MetaModel::EnumChildClasses($sRootClass) as $sChildClass) {
-					$sStateAttCode = MetaModel::GetStateAttributeCode($sChildClass);
-					if (MetaModel::HasLifecycle($sChildClass)) {
-						$aEligibleClasses[$sChildClass] = array('state_att_code' => $sStateAttCode);
-					}
+			foreach (MetaModel::EnumChildClasses($sRootClass) as $sChildClass) {
+				$sStateAttCode = MetaModel::GetStateAttributeCode($sChildClass);
+				if (MetaModel::HasLifecycle($sChildClass)) {
+					$aEligibleClasses[$sChildClass] = array('state_att_code' => $sStateAttCode);
 				}
 			}
 		}
@@ -232,7 +208,7 @@ HTML;
 		$sDictEntryModalTitleAsJSON = json_encode(Dict::S('workflow-graphical-view:UI:Modal:Title'));
 		$sDictEntryModalCloseLabelAsJSON = json_encode(Dict::S('UI:Button:Close'));
 
-		$sAttributeSelectorPrefix = (version_compare(ITOP_DESIGN_LATEST_VERSION , '3.0', '>=') && ContextTag::Check(ContextTag::TAG_CONSOLE)) ? '.ibo-object-details' : '.object-details';
+		$sAttributeSelectorPrefix = ContextTag::Check(ContextTag::TAG_CONSOLE) ? '.ibo-object-details' : '.object-details';
 		return <<<JS
 			\$('{$sAttributeSelectorPrefix}[data-object-class="{$sObjClass}"][data-object-id="{$sObjID}"] *[data-attribute-code="{$sObjStateAttCode}"][data-attribute-flag-read-only="true"]').{$sWidgetName}({
 				object_class: '{$sObjClass}',

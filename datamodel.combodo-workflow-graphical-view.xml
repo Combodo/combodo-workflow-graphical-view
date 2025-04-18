@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<itop_design xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.7">
+<itop_design xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.2">
 	<module_parameters>
 		<parameters id="combodo-workflow-graphical-view" _delta="define">
 			<hide_internal_stimuli type="boolean">false</hide_internal_stimuli>

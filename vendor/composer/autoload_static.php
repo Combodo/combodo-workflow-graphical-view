@@ -21,11 +21,12 @@ class ComposerStaticInit8e40dbcbd20280eb1498a6aa84fb9d6f
     );
 
     public static $classMap = array (
-        'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Extension\\ConsoleUIExtension' => __DIR__ . '/../..' . '/src/Hook/ConsoleUIExtension.php',
-        'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Extension\\PortalUIExtension' => __DIR__ . '/../..' . '/src/Hook/PortalUIExtension.php',
         'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Helper\\ConfigHelper' => __DIR__ . '/../..' . '/src/Helper/ConfigHelper.php',
+        'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Helper\\LifecycleGraphHelper' => __DIR__ . '/../..' . '/src/Helper/LifecycleGraphHelper.php',
+        'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Portal\\Controller\\LifecycleBrickController' => __DIR__ . '/../..' . '/src/Portal/Controller/LifecycleBrickController.php',
         'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Service\\GraphvizGenerator' => __DIR__ . '/../..' . '/src/Service/GraphvizGenerator.php',
         'Combodo\\iTop\\Extension\\WorkflowGraphicalView\\Service\\LifecycleManager' => __DIR__ . '/../..' . '/src/Service/LifecycleManager.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

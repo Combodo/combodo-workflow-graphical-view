@@ -41,13 +41,11 @@ class ConsoleUIExtension extends AbstractApplicationUIExtension
 	public function OnDisplayProperties($oObject, WebPage $oPage, $bEditMode = false)
 	{
 		// Check if extension allowed
-		if(!ConfigHelper::IsAllowed('backoffice'))
-		{
+		if (!ConfigHelper::IsAllowed('backoffice')) {
 			return;
 		}
 
-		if(!LifecycleManager::IsEligibleObject($oObject))
-		{
+		if (!LifecycleManager::IsEligibleObject($oObject)) {
 			return;
 		}
 
@@ -57,12 +55,10 @@ class ConsoleUIExtension extends AbstractApplicationUIExtension
 		$sJSWidgetSnippet = $oLM->GetJSWidgetSnippetForObjectDetails();
 
 		// Add resources
-		foreach($aCSSFiles as $sCSSFile)
-		{
+		foreach ($aCSSFiles as $sCSSFile) {
 			$oPage->LinkStylesheetFromAppRoot($sCSSFile);
 		}
-		foreach($aJSFiles as $sJSFile)
-		{
+		foreach ($aJSFiles as $sJSFile) {
 			$oPage->LinkScriptFromModule($sJSFile);
 		}
 

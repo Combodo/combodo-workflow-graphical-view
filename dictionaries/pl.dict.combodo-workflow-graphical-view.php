@@ -4,14 +4,15 @@
  *
  * @copyright Copyright (C) 2010-2024 Combodo SAS
  * @license    https://opensource.org/licenses/AGPL-3.0
- * 
+ *
  */
 /**
  *
  */
-Dict::Add('PT BR', 'Brazilian', 'Brazilian', [
+Dict::Add('PL PL', 'Polish', 'Polski', [
 	'workflow-graphical-view:Error:GraphVizGeneration' => 'Whoops! Lifecycle could not be generated, check the error log for more information.~~',
 	'workflow-graphical-view:Error:NoStateAttribute' => 'Cannot generate lifecycle graph for %1$s as it has no state attribute.~~',
+	'workflow-graphical-view:Error:ObjectNotEligible' => 'Cannot show lifecycle for %1$s#%2$s, object is not eligible~~',
 	'workflow-graphical-view:UI:Button:ShowLifecycle' => 'Show workflow~~',
 	'workflow-graphical-view:UI:Legend:Item:CurrentState' => 'Current state~~',
 	'workflow-graphical-view:UI:Legend:Item:InternalStimuli' => 'Internal stimuli~~',

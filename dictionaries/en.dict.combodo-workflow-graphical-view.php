@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Affero General Public License
  */
 
-Dict::Add('EN US', 'English', 'English', array(
+Dict::Add('EN US', 'English', 'English',[
 	'workflow-graphical-view:UI:Button:ShowLifecycle' => 'Show workflow',
 	'workflow-graphical-view:UI:Modal:Title' => 'Workflow',
 	'workflow-graphical-view:UI:Legend:Item:CurrentState' => 'Current state',
@@ -25,4 +25,5 @@ Dict::Add('EN US', 'English', 'English', array(
 	'workflow-graphical-view:UI:Legend:Item:InternalStimuli' => 'Internal stimuli',
 	'workflow-graphical-view:Error:NoStateAttribute' => 'Cannot generate lifecycle graph for %1$s as it has no state attribute.',
 	'workflow-graphical-view:Error:GraphVizGeneration' => 'Whoops! Lifecycle could not be generated, check the error log for more information.',
-));
+	'workflow-graphical-view:Error:ObjectNotEligible' => 'Cannot show lifecycle for %1$s#%2$s, object is not eligible',
+]);
