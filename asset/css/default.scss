@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU Affero General Public License
  */
 
-/* Note: Imports path is the /css folder */
-@import 'css-variables.scss';
 
 .workflow_graphical_view{
 	.field_value,
@@ -36,7 +34,7 @@
 
 		&:hover,
 		&:active{
-			color: $highlight-color;
+			color: #EA7D1E;
 			text-decoration: none;
 		}
 	}
